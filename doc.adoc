@@ -1,0 +1,73 @@
+:toc:
+:icons: font
+
+= Getting started with Elastic
+
+== install docker
+
+for installing on Windows:
+
+* https://docs.docker.com/docker-for-windows/install-windows-home/
+
+elastic:
+
+* https://www.elastic.co/guide/en/elasticsearch/reference/7.11/docker.html
+
+kibana:
+
+* https://www.elastic.co/guide/en/kibana/current/docker.html
+
+
+=== get/run container with console
+
+elastic:
+
+[source, bash]
+----
+docker pull docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+
+docker run -p 9200:9200 -p 9300:9300 --name elastic -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.11.0
+----
+
+kibana:
+
+[source, bash]
+----
+docker pull docker.elastic.co/kibana/kibana:7.11.0
+
+docker run --name kibana --link elastic:elasticsearch -p 5601:5601 docker.elastic.co/kibana/kibana:7.11.0
+----
+
+=== docker-compose
+
+run docker container from a .yml
+
+* https://medium.com/@TimvanBaarsen/how-to-run-an-elasticsearch-7-x-single-node-cluster-for-local-development-using-docker-compose-2b7ab73d8b82
+
+== python
+
+creating a venv and entering
+
+[source, bash]
+----
+python3 -m venv C:\UNI\TPBW\Projekte\Elastic\venv
+
+venv\Scripts\activate
+----
+
+install elasticsearch with pip
+
+[source, bash]
+----
+pip install elasticsearch
+----
+
+== links
+
+python api documentation
+
+* https://elasticsearch-py.readthedocs.io/en/v7.11.0/api.html?highlight=update#elasticsearch
+
+JASON bulk
+
+* https://kb.objectrocket.com/elasticsearch/how-to-use-python-helpers-to-bulk-load-data-into-an-elasticsearch-index
