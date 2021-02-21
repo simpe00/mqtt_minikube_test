@@ -9,6 +9,7 @@ Created on Wed Feb 17 11:22:48 2021
 
 import pandas as pd
 import os
+import numpy as np
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 # from math import isnan
@@ -21,7 +22,7 @@ es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
 def docCSV2el(docCSV, indexStr):
 
     bulkList = []
-    temp1 = {}
+    temp1 = {}    
 
     # read each row -> Doc in elastic
     for row in docCSV.index:
@@ -36,7 +37,7 @@ def docCSV2el(docCSV, indexStr):
         # add header
         temp1 = {
             "_index": indexStr,
-            "_type": "_doc",
+            # "_type": "_doc",
             "_id": "CV"+str(row),
             "_source": tempDoc
         }
@@ -52,9 +53,13 @@ if __name__ == "__main__":
     timeStart = time.time()
 
     # open csv
-    path = os.getcwd()+'/'
+    path = dir_path = os.path.dirname(os.path.realpath(__file__))+'/res/'
     filename = 'country_vaccinations.csv'
-    docCSVCovVac = pd.read_csv(path+filename, na_filter=False)
+    dtypeList = {"daily_vaccinations": np.float64,
+                 "people_fully_vaccinated": np.float64}
+    docCSVCovVac = pd.read_csv(path+filename,
+                               na_filter=True,
+                               dtype=dtypeList).fillna(value=0)
 
     docCSV2el(docCSVCovVac, "countryvaccinations")
 

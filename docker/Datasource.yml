@@ -1,0 +1,13 @@
+# config file version
+apiVersion: 1
+
+datasources:
+  - name: Elastic
+    type: elasticsearch
+    access: proxy
+    database: "countryvaccinations"
+    url: http://172.20.0.3:9200
+    jsonData:
+      timeField: "@timestamp"
+      esVersion: 70
+      interval: null
