@@ -78,7 +78,7 @@
           ],
           "metrics": [
             {
-              "field": "people_vaccinated_per_hundred",
+              "field": "daily_vaccinations_per_million",
               "id": "1",
               "type": "avg"
             }
@@ -143,7 +143,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "CV3",
-  "uid": "N0wWX7sMk",
+  "title": "CV4",
+  "uid": "N0wWX7sTk",
   "version": 1
 }

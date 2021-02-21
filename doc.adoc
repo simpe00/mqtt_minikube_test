@@ -49,6 +49,10 @@ docker-compose -f ./docker/docker-compose.yml up -d
 
 * https://medium.com/@TimvanBaarsen/how-to-run-an-elasticsearch-7-x-single-node-cluster-for-local-development-using-docker-compose-2b7ab73d8b82
 
+for starting via script it is needed to handle "Execution_Policies"
+
+* https:/go.microsoft.com/fwlink/?LinkID=135170
+
 == python
 
 creating a venv and entering

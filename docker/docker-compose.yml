@@ -24,8 +24,8 @@ services:
         hard: 65536
     cap_add:
       - IPC_LOCK
-    volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
+#    volumes:
+#      - elasticsearch-data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
       - 9300:9300
@@ -51,13 +51,14 @@ services:
 
   grafana:
     container_name: grafana
-    image: grafana/grafana:7.3.0
+    image: grafana/grafana:7.4.0
     ports:
       - 3000:3000
     volumes:
       - ./datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
       - ./dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
       - ./dashboard.json:/etc/dashboards/dashboard.json
+      - ./dashboard1.json:/etc/dashboards/dashboard1.json
     depends_on: 
       - elasticsearch
     networks:
@@ -65,9 +66,9 @@ services:
         ipv4_address: 172.20.0.5
 
 
-volumes:
-  elasticsearch-data:
-    driver: local
+#volumes:
+#  elasticsearch-data:
+#    driver: local
 
 networks:
   frontend:
