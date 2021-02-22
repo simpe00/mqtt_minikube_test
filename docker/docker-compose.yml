@@ -55,10 +55,11 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
-      - ./dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
-      - ./dashboard.json:/etc/dashboards/dashboard.json
-      - ./dashboard1.json:/etc/dashboards/dashboard1.json
+      #- ./datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./datasources/:/etc/grafana/provisioning/datasources/
+      - ./dashboards/:/etc/grafana/provisioning/dashboards/
+      - ./dashboards/json:/etc/dashboards/
+      #- ./dashboard1.json:/etc/dashboards/dashboard1.json
     depends_on: 
       - elasticsearch
     networks:
