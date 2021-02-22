@@ -3,6 +3,10 @@
 
 = Getting started with Elastic
 
+install python
+
+* https://docs.python.org/3/using/windows.html#the-microsoft-store-package
+
 == install docker
 
 for installing on Windows:
