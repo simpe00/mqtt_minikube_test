@@ -53,6 +53,10 @@ for starting via script it is needed to handle "Execution_Policies"
 
 * https:/go.microsoft.com/fwlink/?LinkID=135170
 
+starting powershell in VSC
+
+* https://docs.microsoft.com/de-de/powershell/scripting/dev-cross-plat/vscode/using-vscode?view=powershell-7.1#choosing-a-version-of-powershell-to-use-with-the-extension
+
 == python
 
 creating a venv and entering
