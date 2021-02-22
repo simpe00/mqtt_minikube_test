@@ -53,7 +53,7 @@ if __name__ == "__main__":
     timeStart = time.time()
 
     # open csv
-    path = dir_path = os.path.dirname(os.path.realpath(__file__))+'/res/'
+    path = dir_path = os.path.dirname(os.path.realpath(__file__))+'/../res/'
     filename = 'country_vaccinations.csv'
     dtypeList = {"daily_vaccinations": np.float64,
                  "people_fully_vaccinated": np.float64}
