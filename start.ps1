@@ -1,5 +1,2 @@
-# start virtual enviroment for python
-.\venv\Scripts\activate
-
 # start docker container
-docker-compose -f ./docker/docker-compose.yml up -d
+docker-compose -f ./docker-compose.yml up --build --force-recreate -d

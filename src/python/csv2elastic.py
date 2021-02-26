@@ -16,7 +16,7 @@ from elasticsearch import helpers
 import time
 # from datetime import datetime
 
-es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+es = Elasticsearch([{'host': '172.20.0.3', 'port': 9200}])
 
 
 def docCSV2el(docCSV, indexStr):

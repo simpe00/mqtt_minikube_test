@@ -101,3 +101,20 @@ grafana dashboards
 curl -X GET "localhost:9200/_cat/indices/*?v=true&s=index&pretty"
 
 ----
+
+== links
+
+ubuntu running
+
+* https://stackoverflow.com/questions/38546755/docker-compose-keep-container-running/56690087
+
+take care
+
+* https://stackoverflow.com/questions/38067511/start-an-existing-docker-ubuntu-container
+
+enter container:
+
+[source, cmd]
+----
+docker exec -it ubuntu_server bash  
+----
