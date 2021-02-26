@@ -11,41 +11,30 @@ import pandas as pd
 import os
 import numpy as np
 from elasticsearch import Elasticsearch
-from elasticsearch import helpers
-# from math import isnan
 import time
+#from elasticsearch import helpers
 # from datetime import datetime
 
+# https://towardsdatascience.com/exporting-pandas-data-to-elasticsearch-724aa4dd8f62
+# https://stackoverflow.com/questions/49726229/how-to-export-pandas-data-to-elasticsearch/49982341
+
 es = Elasticsearch([{'host': '172.20.0.3', 'port': 9200}])
+        
+def rec_to_actions(df,indexStr):
+    import json
+    for record in df.to_dict(orient="records"):
+        yield ('{ "index" : { "_index" : "%s"}}'% (indexStr))
+        #yield ('{ "index" : { "_index" : "%s", "_type" : "%s" }}'% (indexStr, TYPE))
+        yield (json.dumps(record, default=int))
 
+def df2el(DataFrame, indexStr):
 
-def docCSV2el(docCSV, indexStr):
+    # add timestamp
+    DataFrame['@timestamp']=DataFrame['date']+'T00:00:00.000+01:00'    
 
-    bulkList = []
-    temp1 = {}    
-
-    # read each row -> Doc in elastic
-    for row in docCSV.index:
-
-        # allocate dic
-        tempDoc = {}
-        for col in docCSV:
-            tempDoc[col] = docCSV.iloc[row][col]
-        # add timestamp
-        tempDoc['@timestamp'] = tempDoc['date']+'T00:00:00.000+01:00'
-
-        # add header
-        temp1 = {
-            "_index": indexStr,
-            # "_type": "_doc",
-            "_id": "CV"+str(row),
-            "_source": tempDoc
-        }
-
-        bulkList.append(temp1)
-
-    # send to es
-    helpers.bulk(es, bulkList)
+    # send to es    
+    #helpers.bulk(es, doc_generator(DataFrame,indexStr))
+    es.bulk(rec_to_actions(DataFrame,indexStr))
 
 
 if __name__ == "__main__":
@@ -57,11 +46,11 @@ if __name__ == "__main__":
     filename = 'country_vaccinations.csv'
     dtypeList = {"daily_vaccinations": np.float64,
                  "people_fully_vaccinated": np.float64}
-    docCSVCovVac = pd.read_csv(path+filename,
+    df = pd.read_csv(path+filename,
                                na_filter=True,
                                dtype=dtypeList).fillna(value=0)
 
-    docCSV2el(docCSVCovVac, "countryvaccinations")
+    df2el(df, "countryvaccinations")
 
     timeStop = time.time()
 
