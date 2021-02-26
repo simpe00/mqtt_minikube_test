@@ -24,7 +24,6 @@ def rec_to_actions(df,indexStr):
     import json
     for record in df.to_dict(orient="records"):
         yield ('{ "index" : { "_index" : "%s"}}'% (indexStr))
-        #yield ('{ "index" : { "_index" : "%s", "_type" : "%s" }}'% (indexStr, TYPE))
         yield (json.dumps(record, default=int))
 
 def df2el(DataFrame, indexStr):
@@ -33,7 +32,6 @@ def df2el(DataFrame, indexStr):
     DataFrame['@timestamp']=DataFrame['date']+'T00:00:00.000+01:00'    
 
     # send to es    
-    #helpers.bulk(es, doc_generator(DataFrame,indexStr))
     es.bulk(rec_to_actions(DataFrame,indexStr))
 
 
@@ -44,11 +42,8 @@ if __name__ == "__main__":
     # open csv
     path = dir_path = os.path.dirname(os.path.realpath(__file__))+'/../res/'
     filename = 'country_vaccinations.csv'
-    dtypeList = {"daily_vaccinations": np.float64,
-                 "people_fully_vaccinated": np.float64}
-    df = pd.read_csv(path+filename,
-                               na_filter=True,
-                               dtype=dtypeList).fillna(value=0)
+
+    df = pd.read_csv(path+filename, na_filter=True).fillna(value=0)
 
     df2el(df, "countryvaccinations")
 
