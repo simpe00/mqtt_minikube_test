@@ -1,0 +1,83 @@
+:toc:
+:icons: font
+:experimental:
+
+= IOT with docker
+
+== working with this project
+
+.freeze python requirements
+[source, BASH]
+----
+pip freeze > docker/requirements.txt
+----
+
+.start docker container
+
+[source, BASH]
+----
+docker-compose -f ./docker-compose.yml up --build --force-recreate -d
+----
+
+.stop docker container
+[source, BASH]
+----
+docker-compose -f ./docker-compose.yml down
+----
+
+.load development Container in VSC
+. kbd:[Ctrl+Shift+P] or kbd:[F1]
+. type in : ``Remote-Containers: Reopen in Container``
+
+[IMPORTANT]
+The Extension https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers[Remote-Containers] is needed
+
+
+== install docker
+
+* https://docs.docker.com/docker-for-windows/install-windows-home/[docker on Windows]
+
+* https://www.elastic.co/guide/en/elasticsearch/reference/7.11/docker.html[elasticsearch]
+
+* https://www.elastic.co/guide/en/kibana/current/docker.html[kibana]
+
+== links
+
+* https://medium.com/@TimvanBaarsen/how-to-run-an-elasticsearch-7-x-single-node-cluster-for-local-development-using-docker-compose-2b7ab73d8b82[Elastic single node]
+
+* https://docs.python.org/3/using/windows.html#the-microsoft-store-package[install python on Windows]
+
+* https://elasticsearch-py.readthedocs.io/en/v7.11.0/api.html?highlight=update#elasticsearch[Elastic python API]
+
+* https://kb.objectrocket.com/elasticsearch/how-to-use-python-helpers-to-bulk-load-data-into-an-elasticsearch-index[JSON bulk to Elastic with helpers]
+
+* https://grafana.com/docs/grafana/latest/dashboards/json-model/[grafana dashboard JSON model]
+
+* https://grafana.com/docs/grafana/latest/administration/provisioning/#dashboards[Provisioning Grafana]
+
+* https://stackoverflow.com/questions/38546755/docker-compose-keep-container-running/56690087[keep ubuntu container running]
+
+* https://stackoverflow.com/questions/38067511/start-an-existing-docker-ubuntu-container[ubuntu container: "take care"]
+
+* https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[asciidoc]
+
+
+== additional commands collection 
+
+.get index from elastic
+[source, bash]
+----
+curl -X GET "localhost:9200/_cat/indices/*?v=true&s=index&pretty"
+----
+
+.enter a container
+[source, cmd]
+----
+docker exec -it ubuntu_server bash  
+----
+
+.install elasticsearch with pip
+[source, bash]
+----
+pip install elasticsearch
+----
