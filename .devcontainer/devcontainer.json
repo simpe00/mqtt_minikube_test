@@ -57,10 +57,8 @@
 		"--init"	
 	],
 
-	"forwardPorts": [9200, 9201],
+	"forwardPorts": [9200],
 
 	"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
 	
-	//"appPort": ["127.0.0.1:3000:3000"]
-
 }

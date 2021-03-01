@@ -81,3 +81,7 @@ docker exec -it ubuntu_server bash
 ----
 pip install elasticsearch
 ----
+
+=== todo
+
+* look at some interesting Extensions 
