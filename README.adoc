@@ -4,6 +4,9 @@
 
 = IOT with docker
 
+// Variablen
+:VolumeName : bwp_elk_test_data01
+
 == working with this project
 
 .freeze python requirements
@@ -76,6 +79,13 @@ curl -X GET "localhost:9200/_cat/indices/*?v=true&s=index&pretty"
 docker exec -it ubuntu_server bash  
 ----
 
+.remove Volume
+[source, cmd, subs="attributes+"]
+----
+docker volume rm {VolumeName} # <1>
+----
+<1> remove of developing volume
+
 .install elasticsearch with pip
 [source, bash]
 ----
@@ -85,3 +95,10 @@ pip install elasticsearch
 === todo
 
 * look at some interesting Extensions 
+
+include some variables from a file like:
+
+[subs="attributes"]
+----
+include::.env[lines=1]
+----
