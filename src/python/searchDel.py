@@ -34,12 +34,13 @@ query_all_1 = {
     "query": {
         "bool": {
             "must": [
-                { "match": { "iso_code":"ALB" }},
-                { "match": { "date": "2021-01-20" }}
+                {"match": {"iso_code": "ALB"}},
+                {"match": {"date": "2021-01-20"}}
             ]
         }
     }
 }
+
 
 def search():
     resp = es.search(index="countryvaccinations", body=query_all_1)

@@ -1,5 +1,5 @@
 from elasticsearch import Elasticsearch
-import time # for the index's ""timestamp"" field
+import time  # for the index's ""timestamp"" field
 from datetime import datetime
 
 

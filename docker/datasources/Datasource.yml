@@ -11,3 +11,12 @@ datasources:
       timeField: "@timestamp"
       esVersion: 70
       interval: null
+  - name: Elastic_test
+    type: elasticsearch
+    access: proxy
+    database: "datatest"
+    url: http://172.20.0.3:9200
+    jsonData:
+      timeField: "@timestamp"
+      esVersion: 70
+      interval: null
