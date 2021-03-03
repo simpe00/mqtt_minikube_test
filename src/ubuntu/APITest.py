@@ -29,5 +29,17 @@ def environment():
     return json.dumps(environment_data)
 
 
+# Verify the status of the microservice
+@app.route('/test')
+def test():
+    return '{ "Var" : "Value" }'
+
+
+# Verify the status of the microservice
+@app.route('/test1')
+def test1():
+    return '{ "Var1" : "Value1" }'
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)

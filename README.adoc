@@ -102,3 +102,5 @@ include some variables from a file like:
 ----
 include::.env[lines=1]
 ----
+
+* https://code.visualstudio.com/blogs/2019/10/31/inspecting-containers[Remote Debugging]

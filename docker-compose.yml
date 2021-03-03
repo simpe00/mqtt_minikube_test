@@ -59,10 +59,12 @@ services:
   ubuntu:
     container_name: ubuntu_server
     #image: ubuntu:20.04
-    image: ubunut_server
+    image: ubuntu_server
     build:
       context: .
       dockerfile: ./docker/Dockerfile.ubuntu
+    ports:
+      - 5678:5678
     #command: tail -F anything
     stdin_open: true
     tty: true
