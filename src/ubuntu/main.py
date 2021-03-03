@@ -8,6 +8,7 @@ def main():
     b = 3
     c = a+b
     print(c)
+    print(a)
 
 
 if __name__ == "__main__":
