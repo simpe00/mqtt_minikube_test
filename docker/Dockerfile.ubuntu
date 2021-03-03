@@ -5,8 +5,7 @@ RUN \
     apt-get update && \
     apt install python3.9 -y && \
     apt install python3-pip -y && \
-    apt-get install iputils-ping -y && \
-    pip3 install flask==0.10.1
+    apt-get install iputils-ping -y 
 
 # [Optional] If your pip requirements rarely change, uncomment this section to add them to the image.
 COPY docker/requirements.txt /tmp/pip-tmp/
