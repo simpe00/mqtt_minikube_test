@@ -4,7 +4,7 @@
 
 = IOT with docker
 
-// Variablen
+// variables
 :VolumeName : bwp_elk_test_data01
 
 == working with this project
@@ -15,12 +15,18 @@
 pip freeze > docker/requirements.txt
 ----
 
-.start docker container
-
-[source, BASH]
+.start docker container from #outside# the devContainer
+[source, CMD]
 ----
 docker-compose -f ./docker-compose.yml up --build --force-recreate -d
 ----
+
+//.start docker container from #inside# the devContainer
+//[source, BASH]
+//----
+//docker-compose -f ./docker-compose.yml up -d
+//----
+// problems with volumes
 
 .stop docker container
 [source, BASH]
@@ -34,6 +40,13 @@ docker-compose -f ./docker-compose.yml down
 
 [IMPORTANT]
 The Extension https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers[Remote-Containers] is needed
+
+
+.overview of environment variables in the project
+[subs="attributes"]
+----
+include::.env[]
+----
 
 
 == install docker
@@ -100,7 +113,7 @@ include some variables from a file like:
 
 [subs="attributes"]
 ----
-include::.env[lines=1]
+include::.env[lines=1..2]
 ----
 
 * https://code.visualstudio.com/blogs/2019/10/31/inspecting-containers[Remote Debugging]

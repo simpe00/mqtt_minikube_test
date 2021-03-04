@@ -41,7 +41,8 @@
 		"streetsidesoftware.code-spell-checker",
 		"ms-azuretools.vscode-docker",
 		"ms-toolsai.jupyter",
-		"eamodio.gitlens"
+		"eamodio.gitlens",
+		"42crunch.vscode-openapi"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -56,7 +57,7 @@
 	// add to existing network
 	"runArgs": [
 		"--network=bwp_elk_test_backend",
-		"--ip=172.20.0.99",
+		"--ip=${localEnv:IPV4_DEVCONTAINER}",
 		"--name=devContainerPython",
 		"--init"	
 	],

@@ -1,0 +1,48 @@
+openapi: '3.0.2'
+info:
+  title: API Title
+  version: '1.0'
+servers:
+  - url: http://localhost:80  # only for preview function.
+  - url: http://172.20.0.6:80 # see "curl" and try in bash.
+tags:
+  - name: General
+    description: The general API for communication with the embedded system
+  - name: default
+    description: default API collection
+
+paths:
+  /environment:
+    get:
+      tags:
+        - "General"
+      description: Check the environment of the running system
+      responses:
+        '200':
+          description: OK
+  /health:
+    get:
+      tags:
+        - "General"
+      description: Check the status
+      responses:
+        '200':
+          description: OK
+  /:
+    get:
+      tags:
+        - "General"
+      description: Hello
+      responses:
+        '200':
+          description: OK
+  /test1:
+    get:
+      tags:
+        - "General"
+      responses:
+        '200':
+          description: OK
+
+
+

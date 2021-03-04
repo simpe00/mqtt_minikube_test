@@ -8,8 +8,8 @@ services:
     environment:
       - node.name=BW_node
       - discovery.type=single-node
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - bootstrap.memory_lock=true          # dev
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"    # dev
     ulimits:
       memlock:
         soft: -1
@@ -26,7 +26,7 @@ services:
       - 9300:9300
     networks:
       backend:
-        ipv4_address: 172.20.0.3  
+        ipv4_address: ${IPV4_ELASTICSEARCH} 
 
   kibana:
     container_name: kibana
@@ -39,7 +39,7 @@ services:
       - elasticsearch
     networks:
       backend:
-        ipv4_address: 172.20.0.4  
+        ipv4_address: ${IPV4_KIBANA}
 
   grafana:
     container_name: grafana
@@ -54,23 +54,27 @@ services:
       - elasticsearch
     networks:
       backend:
-        ipv4_address: 172.20.0.5
+        ipv4_address: ${IPV4_GRAFANA}
 
   ubuntu:
     container_name: ubuntu_server
-    #image: ubuntu:20.04
     image: ubuntu_server
     build:
       context: .
       dockerfile: ./docker/Dockerfile.ubuntu
     ports:
       - 5678:5678
-    #command: tail -F anything
+      - 80:80
+    volumes:
+      - ./src/ubuntu/:/usr/src/ubuntu/
+    entrypoint: [ "python3", "-m", "debugpy", "--listen", "${IPV4_PYTHON_SERVER}:5678", "./APITest.py"]
+    # entrypoint: [ "python3", "-m", "debugpy", "--listen", "${IPV4_PYTHON_SERVER}:5678", "--wait-for-client", "./APITest.py"]
+    # command: "python3 -m debugpy --listen ${IPV4_PYTHON_SERVER}:5678 --wait-for-client ./main.py"
     stdin_open: true
     tty: true
     networks:
       backend:
-        ipv4_address: 172.20.0.6
+        ipv4_address: ${IPV4_PYTHON_SERVER}
 
 #  python:
 #    container_name: python_run

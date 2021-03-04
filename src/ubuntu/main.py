@@ -1,14 +1,11 @@
 import time
 
 
-# Defining main function
+# Defining main function14433
 def main():
     print("hello World")
-    a = 2
-    b = 3
-    c = a+b
-    print(c)
-    print(a)
+    a = 10
+    return a
 
 
 if __name__ == "__main__":

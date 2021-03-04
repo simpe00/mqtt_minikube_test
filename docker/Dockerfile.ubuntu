@@ -12,11 +12,8 @@ COPY docker/requirements.txt /tmp/pip-tmp/
 RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
     && rm -rf /tmp/pip-tmp
 
-COPY src/ubuntu /usr/src/ubuntu
+#COPY src/ubuntu /usr/src/ubuntu
 WORKDIR /usr/src/ubuntu
-#CMD [ "python3", "./usr/src/ubuntu/main.py" ]
-#CMD [ "python3", "./usr/src/ubuntu/APITest.py" ]
-#CMD [ "python3", "./APITest.py" ]
 
 #ENTRYPOINT [ "python3", "./ubuntu/main.py", "debugpy", "--listen", "172.20.0.6:5678", "--wait-for-client", "-m"]
-ENTRYPOINT [ "python3", "-m", "debugpy", "--listen", "172.20.0.6:5678", "--wait-for-client", "./main.py"]
+#ENTRYPOINT [ "python3", "-m", "debugpy", "--listen", "172.20.0.6:5678", "--wait-for-client", "./main.py"]
