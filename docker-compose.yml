@@ -22,8 +22,8 @@ services:
     cap_add:
       - IPC_LOCK
     ports:
-      - 9200:9200
-      - 9300:9300
+      - ${PORT_ELASTIC_1}:${PORT_ELASTIC_1}
+      - ${PORT_ELASTIC_2}:${PORT_ELASTIC_2}
     networks:
       backend:
         ipv4_address: ${IPV4_ELASTICSEARCH} 
@@ -34,7 +34,7 @@ services:
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     ports:
-      - 5601:5601
+      - ${PORT_KIBANA}:${PORT_KIBANA}
     links:
       - elasticsearch
     networks:
@@ -45,7 +45,7 @@ services:
     container_name: grafana
     image: grafana/grafana:7.4.0
     ports:
-      - 3000:3000
+      - ${PORT_GRAFANA}:${PORT_GRAFANA}
     volumes:
       - ./docker/datasources/:/etc/grafana/provisioning/datasources/
       - ./docker/dashboards/:/etc/grafana/provisioning/dashboards/
@@ -62,13 +62,16 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile.ubuntu
+    environment: 
+      - PORT_API=${PORT_API}
     ports:
-      - 5678:5678
-      - 80:80
+      - ${PORT_DEV_REMOTE_DEBUG}:${PORT_DEV_REMOTE_DEBUG}
+      - ${PORT_API}:${PORT_API}
     volumes:
       - ./src/ubuntu/:/usr/src/ubuntu/
-    entrypoint: [ "python3", "-m", "debugpy", "--listen", "${IPV4_PYTHON_SERVER}:5678", "./APITest.py"]
-    # entrypoint: [ "python3", "-m", "debugpy", "--listen", "${IPV4_PYTHON_SERVER}:5678", "--wait-for-client", "./APITest.py"]
+    entrypoint: [ "python3", "-m", "debugpy", "--listen",
+     "${IPV4_PYTHON_SERVER}:${PORT_DEV_REMOTE_DEBUG}", "./main.py"]
+    # entrypoint: [ "python3", "-m", "debugpy", "--listen", "${IPV4_PYTHON_SERVER}:5678", "--wait-for-client", "./main.py"]
     # command: "python3 -m debugpy --listen ${IPV4_PYTHON_SERVER}:5678 --wait-for-client ./main.py"
     stdin_open: true
     tty: true
@@ -95,4 +98,4 @@ networks:
   backend:
     ipam:
       config:
-        - subnet: 172.20.0.0/24
+        - subnet: ${IPV4_SUBNET}

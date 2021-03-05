@@ -8,10 +8,26 @@ servers:
 tags:
   - name: General
     description: The general API for communication with the embedded system
+  - name: ELASTIC
+    description: communication with elastic via python
   - name: default
     description: default API collection
 
 paths:
+  /:
+    get:
+      description: 
+      responses:
+        '200':
+          description: OK
+  /csv2elastic:
+    get:
+      tags:
+        - "ELASTIC"
+      description: CSV to Elastic for testing
+      responses:
+        '200':
+          description: OK
   /environment:
     get:
       tags:
@@ -28,21 +44,3 @@ paths:
       responses:
         '200':
           description: OK
-  /:
-    get:
-      tags:
-        - "General"
-      description: Hello
-      responses:
-        '200':
-          description: OK
-  /test1:
-    get:
-      tags:
-        - "General"
-      responses:
-        '200':
-          description: OK
-
-
-
