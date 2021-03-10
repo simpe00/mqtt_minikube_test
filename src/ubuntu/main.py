@@ -1,12 +1,20 @@
 # !flask/bin/python
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import json
 import os
 import socket
 import platform
 from CSV2ELASTIC import csv2elastic as c2e
+import logging
 
+
+# looging for development
+logging.basicConfig(format='%(asctime)s.%(msecs)03d %(levelname)s'
+                    ' {%(module)s} [%(funcName)s] %(message)s',
+                    datefmt='%Y-%m-%d, %H:%M:%S',
+                    filemode='w',
+                    level=logging.INFO)
 
 app = Flask(__name__)
 cors = CORS(app)                             # needed for swaggerUI extension
@@ -18,6 +26,13 @@ app.config['CORS_HEADERS'] = 'Content-Type'  # needed for swaggerUI extension
 @cross_origin()                              # needed for swaggerUI extension
 def hello():
     return 'Hello world!'
+
+
+# Verify the status of the microservice
+@app.route('/TEST')
+def TEST():
+    reqArgs = request.args
+    return json.dumps(reqArgs)
 
 
 # Verify the status of the microservice
@@ -41,10 +56,18 @@ def environment():
 # trigger read CSV to Elastic
 @app.route('/csv2elastic')
 def csv2elastic():
-    c2e.main()
-    return '{ "status" : "DONE" }'
+    indexname = request.args.get('indexname')
+    filename = request.args.get('filename')
+
+    try:
+        c2e.main(indexname, filename)
+        return '{ "status" : "DONE" }'
+    except Exception:
+        logging.error("file could not transferred to elastic")
+        return '{ "status" : "ERROR" }'
 
 
 if __name__ == '__main__':
+    # run app
     app.run(host=socket.gethostbyname(socket.gethostname()),
             port=int(os.getenv('PORT_API')))

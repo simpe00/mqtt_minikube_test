@@ -12,6 +12,7 @@ import os
 import numpy as np
 from elasticsearch import Elasticsearch
 import time
+import logging
 # from elasticsearch import helpers
 # from datetime import datetime
 
@@ -21,39 +22,33 @@ import time
 es = Elasticsearch([{'host': '172.20.0.3', 'port': 9200}])
 
 
-def rec_to_actions(df, indexStr):
+# https://stackoverflow.com/questions/49726229/how-to-export-pandas-data-to-elasticsearch/49982341
+def df2bulkjson(df, indexStr):
     import json
+    import uuid
     for record in df.to_dict(orient="records"):
-        yield ('{ "index" : { "_index" : "%s"}}' % (indexStr))
+        yield ('{ "index" : { "_index" : "%s", "_id" : "%s"}}'
+               % (indexStr, 'CV'+record['date']+str(uuid.uuid4())))
         yield (json.dumps(record, default=int))
 
 
-def df2el(DataFrame, indexStr):
-    # add timestamp
-    DataFrame['@timestamp'] = DataFrame['date']+'T00:00:00.000+01:00'
-
-    # send to es
-    es.bulk(rec_to_actions(DataFrame, indexStr))
-
-
-def main():
+def main(indexname, filename):
+    # start calculation time
     timeStart = time.time()
 
     # open csv
     path = os.path.dirname(os.path.realpath(__file__))+'/../res/'
-    filename = 'country_vaccinations.csv'
-
     df = pd.read_csv(path+filename, na_filter=True).fillna(value=0)
 
-    df2el(df, "countryvaccinations")
+    # add timestamp
+    df['@timestamp'] = df['date']+'T00:00:00.000+01:00'
 
-    timeStop = time.time()
+    # send to es
+    es.bulk(df2bulkjson(df, indexname))
 
     # calc time
-    timeCalc = timeStop-timeStart
-    print("calculation: "+str(timeCalc)+" sec.")
-
-    es.indices.flush(index="countryvaccinations")
+    timeCalc = time.time()-timeStart
+    logging.info("calculation Time: "+str(timeCalc)+" sec.")
 
 
 def TEST():
@@ -61,4 +56,4 @@ def TEST():
 
 
 if __name__ == "__main__":
-    main()
+    main("countryvaccinations", 'country_vaccinations.csv')

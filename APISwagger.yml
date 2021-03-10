@@ -4,7 +4,11 @@ info:
   version: '1.0'
 servers:
   - url: http://localhost:80  # only for preview function.
+    description: development
   - url: http://172.20.0.6:80 # see "curl" and try in bash.
+    description: production
+
+
 tags:
   - name: General
     description: The general API for communication with the embedded system
@@ -14,9 +18,39 @@ tags:
     description: default API collection
 
 paths:
+  /TEST:
+    get:
+      tags:
+        - "default"
+      description: test for blabla
+      responses:
+        '200':
+          description: OK
+      parameters:
+        - in: query
+          name: test
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    type: string
+                  color:
+                    type: string
+                example:
+                  id : 1
+                  type: test
+                  color: blue
+
+
+            
+
   /:
     get:
-      description: 
+      description: Hello World
       responses:
         '200':
           description: OK
@@ -28,6 +62,19 @@ paths:
       responses:
         '200':
           description: OK
+      parameters:
+        - in: query
+          name: indexname
+          example: "countryvaccinations"
+          schema:
+            type: string
+        - in: query
+          name: filename
+          example: 'country_vaccinations.csv'
+          schema:
+            type: string
+          
+
   /environment:
     get:
       tags:

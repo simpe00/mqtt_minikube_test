@@ -9,7 +9,7 @@
             "type": "python",
             "request": "attach",
             "connect": {
-                "host": "172.20.0.6", //"${env:IPV4_PYTHON_SERVER}",
+                "host": "172.20.0.6", //TODO:"${env:IPV4_PYTHON_SERVER}", --> devcontainer with compose!
                 "port": 5678
             },
             "pathMappings": [
