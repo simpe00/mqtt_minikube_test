@@ -18,7 +18,16 @@ tags:
     description: default API collection
 
 paths:
-  /TEST:
+  /TEST/{model}:
+    parameters:
+      - name: model
+        in: path        
+        required: true
+        description: optional path parameter
+        schema:
+          type: string
+          example:
+            defaultModel
     get:
       tags:
         - "default"
@@ -44,6 +53,30 @@ paths:
                   id : 1
                   type: test
                   color: blue
+    post:
+      tags:
+        - default  
+      description: POST some data to the server
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Data1:
+                  type: string
+                Data2:
+                  type: string
+                Data3:
+                  type: string
+              example:
+                Data1 : A String for Data 1
+                Data2 : A String for Data 2
+                Data3 : A String for Data 3
+      responses:
+        '200':
+          description: OK
 
 
             

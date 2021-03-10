@@ -28,11 +28,20 @@ def hello():
     return 'Hello world!'
 
 
-# Verify the status of the microservice
-@app.route('/TEST')
-def TEST():
-    reqArgs = request.args
-    return json.dumps(reqArgs)
+# Test args string
+@app.route('/TEST/<model>',  methods=['GET', 'POST'])
+def TEST(model):
+    if request.method == 'GET':
+        reqArgs = request.args
+        return json.dumps(reqArgs)
+    elif request.method == 'POST':
+        t1 = request.json
+        t1['model'] = model
+        logging.info(t1)
+        return json.dumps(t1)
+    else:
+        logging.info('try GET or POST method')
+        return '{ "status" : "ERROR" }'
 
 
 # Verify the status of the microservice
