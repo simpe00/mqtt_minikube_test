@@ -77,6 +77,8 @@ include::.env[]
 
 * https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[asciidoc]
 
+* https://stackoverflow.com/questions/56518032/windows-10-and-docker-container-logs-docker-logging-driver[see docker folder on Windows via WSL2]
+
 
 == additional commands collection 
 

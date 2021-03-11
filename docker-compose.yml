@@ -41,6 +41,23 @@ services:
       backend:
         ipv4_address: ${IPV4_KIBANA}
 
+  logstash:
+    container_name: logstash
+    image: logstash
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.logstash
+    ports:
+      - ${PORT_LOGSTASH}:${PORT_LOGSTASH}
+    volumes:
+      # - ./docker/pipline/:/usr/share/logstash/pipeline
+      - ./docker/logstash/testLogJson.json:/home/logs/testLogJson.json
+    depends_on: 
+     - elasticsearch
+    networks:
+      backend:
+        ipv4_address: ${IPV4_LOGSTASH}
+
   grafana:
     container_name: grafana
     image: grafana/grafana:7.4.0
@@ -68,6 +85,8 @@ services:
       - ${PORT_DEV_REMOTE_DEBUG}:${PORT_DEV_REMOTE_DEBUG}
       - ${PORT_API}:${PORT_API}
     volumes:
+      # - ${localWorkspaceFolder}/src/ubuntu/:/usr/src/ubuntu/
+      # - ${HOST_PROJECT_PATH}/src/ubuntu/:/usr/src/ubuntu/
       - ./src/ubuntu/:/usr/src/ubuntu/
     entrypoint: [ "python3", "-m", "debugpy", "--listen",
      "${IPV4_PYTHON_SERVER}:${PORT_DEV_REMOTE_DEBUG}", "./main.py"]
