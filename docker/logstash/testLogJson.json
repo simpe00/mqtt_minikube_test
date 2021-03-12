@@ -25,6 +25,36 @@
 {"log":"2021-03-10T16:16:22.067 INFO {_internal} [_log] 172.20.0.1 - - [10/Mar/2021 16:16:22] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-10T16:16:22.0678224Z"}
 {"log":"2021-03-10T16:16:22.227 INFO {_internal} [_log] 172.20.0.1 - - [10/Mar/2021 16:16:22] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-10T16:16:22.227841Z"}
 {"log":"2021-03-10T16:16:22.387 INFO {_internal} [_log] 172.20.0.1 - - [10/Mar/2021 16:16:22] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-10T16:16:22.3884516Z"}
-{"log":"2021-03-10T16:16:22.527 INFO {_internal} [_log] 172.20.0.1 - - [10/Mar/2021 16:16:22] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-10T16:16:22.5283995Z"}
-{"log":"2021-03-10T16:16:22.788 INFO {_internal} [_log] 172.20.0.1 - - [10/Mar/2021 16:16:22] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-10T16:16:22.7889393Z"}
-{"log":"2021-03-10T16:16:22.956 INFO {_internal} [_log] 172.20.0.1 - - [10/Mar/2021 16:16:22] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-10T16:16:22.9572624Z"}
+{"log":"2021-03-10T17:16:22.527 INFO {_internal} [_log] 172.20.0.1 - - [10/Mar/2021 16:16:22] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-10T17:16:22.5283995Z"}
+{"log":"2021-03-10T17:16:22.788 INFO {_internal} [_log] 172.20.0.1 - - [10/Mar/2021 16:16:22] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-10T17:16:22.7889393Z"}
+{"log":"2021-03-10T17:16:22.956 INFO {_internal} [_log] 172.20.0.1 - - [10/Mar/2021 16:16:22] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-10T17:16:22.9572624Z"}
+{"log":"2021-03-11T10:32:09.328 INFO {_internal} [_log]  * Running on http://172.20.0.6:80/ (Press CTRL+C to quit)\r\n","stream":"stdout","time":"2021-03-11T10:32:09.3288646Z"}
+{"log":"2021-03-11T16:37:19.437 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:37:19] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:37:19.4378873Z"}
+{"log":"2021-03-11T16:37:22.222 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:37:22] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:37:22.2230234Z"}
+{"log":"2021-03-11T16:37:23.497 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:37:23] \"GET /health HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:37:23.4980986Z"}
+{"log":"2021-03-11T16:37:27.891 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:37:27] \"GET /environment HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:37:27.8921132Z"}
+{"log":"2021-03-11T16:37:28.877 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:37:28] \"GET /environment HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:37:28.8778008Z"}
+{"log":"2021-03-11T16:37:30.035 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:37:30] \"GET /environment HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:37:30.0361759Z"}
+{"log":"2021-03-11T16:37:42.873 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:37:42] \"GET /TEST/defaultModel?test=%7B%0A%20%20%22id%22%3A%201%2C%0A%20%20%22type%22%3A%20%22test%22%2C%0A%20%20%22color%22%3A%20%22blue%22%0A%7D HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:37:42.8733839Z"}
+{"log":"2021-03-11T16:37:45.414 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:37:45] \"GET /TEST/defaultModel?test=%7B%0A%20%20%22id%22%3A%201%2C%0A%20%20%22type%22%3A%20%22test%22%2C%0A%20%20%22color%22%3A%20%22blue%22%0A%7D HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:37:45.4151197Z"}
+{"log":"2021-03-11T16:37:46.712 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:37:46] \"GET /TEST/defaultModel?test=%7B%0A%20%20%22id%22%3A%201%2C%0A%20%20%22type%22%3A%20%22test%22%2C%0A%20%20%22color%22%3A%20%22blue%22%0A%7D HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:37:46.7130125Z"}
+{"log":"2021-03-11T16:38:07.340 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:38:07] \"GET / HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:38:07.3410256Z"}
+{"log":"2021-03-11T16:38:11.276 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:38:11] \"GET / HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:38:11.2767447Z"}
+{"log":"2021-03-11T16:38:12.592 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:38:12] \"GET / HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:38:12.5932462Z"}
+{"log":"2021-03-11T16:46:06.674 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:46:06] \"OPTIONS /TEST/defaultModel HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:46:06.6750342Z"}
+{"log":"2021-03-11T16:46:06.679 INFO {main} [TEST] {'Data1': 'A String for Data 1', 'Data2': 'A String for Data 2', 'Data3': 'A String for Data 3', 'model': 'defaultModel'}\r\n","stream":"stdout","time":"2021-03-11T16:46:06.6800648Z"}
+{"log":"2021-03-11T16:46:06.680 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:46:06] \"POST /TEST/defaultModel HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:46:06.6806589Z"}
+{"log":"2021-03-11T16:46:24.794 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:46:24] \"OPTIONS /TEST/defaultModel HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:46:24.7947799Z"}
+{"log":"2021-03-11T16:46:24.799 INFO {main} [TEST] {'Data1': 'A String for Data 1', 'Data2': 'A String for Data 2', 'Data3': 'A String for Data 3', 'model': 'defaultModel'}\r\n","stream":"stdout","time":"2021-03-11T16:46:24.8000567Z"}
+{"log":"2021-03-11T16:46:24.800 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:46:24] \"POST /TEST/defaultModel HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:46:24.8006313Z"}
+{"log":"2021-03-11T16:46:26.260 INFO {main} [TEST] {'Data1': 'A String for Data 1', 'Data2': 'A String for Data 2', 'Data3': 'A String for Data 3', 'model': 'defaultModel'}\r\n","stream":"stdout","time":"2021-03-11T16:46:26.2612121Z"}
+{"log":"2021-03-11T16:46:26.261 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:46:26] \"POST /TEST/defaultModel HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:46:26.2616881Z"}
+{"log":"2021-03-11T16:46:27.780 INFO {main} [TEST] {'Data1': 'A String for Data 1', 'Data2': 'A String for Data 2', 'Data3': 'A String for Data 3', 'model': 'defaultModel'}\r\n","stream":"stdout","time":"2021-03-11T16:46:27.7815197Z"}
+{"log":"2021-03-11T16:46:27.782 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:46:27] \"POST /TEST/defaultModel HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:46:27.7825739Z"}
+{"log":"2021-03-11T16:46:37.617 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:46:37] \"OPTIONS /TEST/defaultModel HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:46:37.6181342Z"}
+{"log":"2021-03-11T16:46:37.622 INFO {main} [TEST] {'Data1': 'A String for Data 1', 'Data2': 'A String for Data 2', 'Data3': 'A String for Data 3', 'model': 'defaultModel'}\r\n","stream":"stdout","time":"2021-03-11T16:46:37.6229515Z"}
+{"log":"2021-03-11T16:46:37.623 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:46:37] \"POST /TEST/defaultModel HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:46:37.6235688Z"}
+{"log":"2021-03-11T16:46:44.788 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:46:44] \"OPTIONS /TEST/defaultModel HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:46:44.789251Z"}
+{"log":"2021-03-11T16:46:50.508 INFO {main} [TEST] {'Data1': 'A String for Data 1', 'Data2': 'A String for Data 2', 'Data3': 'A String for Data 3', 'model': 'defaultModel'}\r\n","stream":"stdout","time":"2021-03-11T16:46:50.5091817Z"}
+{"log":"2021-03-11T16:46:50.509 INFO {_internal} [_log] 172.20.0.1 - - [11/Mar/2021 16:46:50] \"POST /TEST/defaultModel HTTP/1.1\" 200 -\r\n","stream":"stdout","time":"2021-03-11T16:46:50.5101863Z"}
+

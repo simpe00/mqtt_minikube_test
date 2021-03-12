@@ -32,7 +32,7 @@ services:
     container_name: kibana
     image: docker.elastic.co/kibana/kibana:7.11.0
     environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:${PORT_ELASTIC_1}
     ports:
       - ${PORT_KIBANA}:${PORT_KIBANA}
     links:
@@ -47,11 +47,13 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile.logstash
+    env_file:
+     - ./.env
     ports:
       - ${PORT_LOGSTASH}:${PORT_LOGSTASH}
     volumes:
       # - ./docker/pipline/:/usr/share/logstash/pipeline
-      - ./docker/logstash/testLogJson.json:/home/logs/testLogJson.json
+      - ./docker/logstash/:/home/logs/
     depends_on: 
      - elasticsearch
     networks:
@@ -63,6 +65,8 @@ services:
     image: grafana/grafana:7.4.0
     ports:
       - ${PORT_GRAFANA}:${PORT_GRAFANA}
+    env_file:
+     - ./.env
     volumes:
       - ./docker/datasources/:/etc/grafana/provisioning/datasources/
       - ./docker/dashboards/:/etc/grafana/provisioning/dashboards/
@@ -106,7 +110,7 @@ services:
 #      dockerfile: ./docker/Dockerfile.py
 #    networks: 
 #      backend:
-#        ipv4_address: 172.20.0.7
+#        ipv4_address: 172.20.0.8
 
 
 volumes:

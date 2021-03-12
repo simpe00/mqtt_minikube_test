@@ -6,7 +6,7 @@ datasources:
     type: elasticsearch
     access: proxy
     database: "countryvaccinations"
-    url: http://172.20.0.3:9200
+    url: http://${IPV4_ELASTICSEARCH}:${PORT_ELASTIC_1}
     jsonData:
       timeField: "@timestamp"
       esVersion: 70
@@ -15,8 +15,18 @@ datasources:
     type: elasticsearch
     access: proxy
     database: "datatest"
-    url: http://172.20.0.3:9200
+    url: http://${IPV4_ELASTICSEARCH}:${PORT_ELASTIC_1}
     jsonData:
       timeField: "@timestamp"
       esVersion: 70
       interval: null
+  - name: ElasticLogstash
+    type: elasticsearch
+    access: proxy
+    database: "testindexlogstash"
+    url: http://${IPV4_ELASTICSEARCH}:${PORT_ELASTIC_1}
+    jsonData:
+      timeField: "time"
+      esVersion: 70
+      interval: null
+      logMessageField: log
