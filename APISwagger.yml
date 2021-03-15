@@ -6,6 +6,8 @@ servers:
   - url: http://localhost:80  # only for preview function.
     description: development
   - url: http://172.20.0.6:80 # see "curl" and try in bash.
+    description: backend
+  - url: http://192.168.178.66:80 # see "curl" and try in bash.
     description: production
 
 

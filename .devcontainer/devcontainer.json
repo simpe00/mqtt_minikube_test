@@ -1,5 +1,6 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.158.0/containers/python-3
+// https://code.visualstudio.com/docs/remote/devcontainerjson-reference
 {
 	"name": "Python 3",
 	"build": {
@@ -59,7 +60,8 @@
 		"--network=bwp_elk_test_backend",
 		"--ip=${localEnv:IPV4_DEVCONTAINER}",
 		"--name=devContainerPython",
-		"--init"	
+		"--init",
+		"--env-file",".env"	
 	],
 
 	"forwardPorts": [9200,5678],

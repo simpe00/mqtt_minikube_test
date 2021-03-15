@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  kibana:
+    container_name: kibana
+    image: jamesgarside/kibana:7.10.2
+  
+  logstash:
+    image: logstash
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.logstash.arm
+
+

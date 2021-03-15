@@ -1,4 +1,5 @@
-FROM docker.elastic.co/logstash/logstash:7.3.2
+FROM jamesgarside/logstash:7.9.3
+
 
 # copy a loglife for investigation
 COPY docker/logstash/ /home/logs/

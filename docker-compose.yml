@@ -51,9 +51,9 @@ services:
      - ./.env
     ports:
       - ${PORT_LOGSTASH}:${PORT_LOGSTASH}
-    volumes:
-      # - ./docker/pipline/:/usr/share/logstash/pipeline
-      - ./docker/logstash/:/home/logs/
+    # volumes:
+      ###### - ./docker/pipline/:/usr/share/logstash/pipeline
+      # - ./docker/logstash/:/home/logs/
     depends_on: 
      - elasticsearch
     networks:
@@ -62,15 +62,18 @@ services:
 
   grafana:
     container_name: grafana
-    image: grafana/grafana:7.4.0
+    image: grafana
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.grafana
     ports:
       - ${PORT_GRAFANA}:${PORT_GRAFANA}
     env_file:
      - ./.env
-    volumes:
-      - ./docker/datasources/:/etc/grafana/provisioning/datasources/
-      - ./docker/dashboards/:/etc/grafana/provisioning/dashboards/
-      - ./docker/dashboards/json:/etc/dashboards/
+    # volumes:
+      # - ./docker/datasources/:/etc/grafana/provisioning/datasources/
+      # - ./docker/dashboards/:/etc/grafana/provisioning/dashboards/
+      # - ./docker/dashboards/json:/etc/dashboards/
     depends_on: 
       - elasticsearch
     networks:
@@ -85,13 +88,14 @@ services:
       dockerfile: ./docker/Dockerfile.ubuntu
     environment: 
       - PORT_API=${PORT_API}
+      - IPV4_ADRR=${IPV4_PYTHON_SERVER}
     ports:
       - ${PORT_DEV_REMOTE_DEBUG}:${PORT_DEV_REMOTE_DEBUG}
       - ${PORT_API}:${PORT_API}
-    volumes:
+    # volumes:
       # - ${localWorkspaceFolder}/src/ubuntu/:/usr/src/ubuntu/
       # - ${HOST_PROJECT_PATH}/src/ubuntu/:/usr/src/ubuntu/
-      - ./src/ubuntu/:/usr/src/ubuntu/
+      # - ./src/ubuntu/:/usr/src/ubuntu/
     entrypoint: [ "python3", "-m", "debugpy", "--listen",
      "${IPV4_PYTHON_SERVER}:${PORT_DEV_REMOTE_DEBUG}", "./main.py"]
     # entrypoint: [ "python3", "-m", "debugpy", "--listen", "${IPV4_PYTHON_SERVER}:5678", "--wait-for-client", "./main.py"]

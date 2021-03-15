@@ -57,11 +57,74 @@ include::.env[]
 
 * https://www.elastic.co/guide/en/kibana/current/docker.html[kibana]
 
+
+
+
+== docker remote deploying on raspberry
+
+* https://www.docker.com/blog/how-to-deploy-on-remote-docker-hosts-with-docker-compose/[tutorial]
+
+. install a OS on a SD-card
+
+    e.g. UBUNTU SERVER 2.10 64bit
+
+. install docker-compose on raspberry
+
+[source, bash]
+----
+sudo apt-get install docker-compose
+----
+
+. create docker context from Laptop/VSC and proof it
+
+[source, bash]
+----
+docker context create remote --docker "host=ssh://ubuntu@192.168.178.7"
+
+docker context ls
+
+docker context use remote
+----
+
+or...
+
+* https://code.visualstudio.com/docs/containers/choosing-dev-environment#_remote-machine[VSC SSH docker deploying - tutorial]
+
+or 
+
+
+ 
+. SSH: generate ssh key on localhost
+
+[source, cmd]
+----
+ssh-keygen
+----
+
+. store public key (.pub) on your server via terminal
+
+[source, cmd]
+----
+scp /path/to/file username@a:/path/to/destination
+----
+
+    e.g. .\key1.pub ubuntu@192.168.178.7:/home/ubuntu/.ssh/authorized_keys
+
+
+
+* https://docs.docker.com/engine/install/linux-postinstall/[root for docker via SSH] 
+* https://github.com/sindresorhus/guides/blob/main/docker-without-sudo.md[add ubuntu user to docker group or have access via SSH for docker daemon ]
+
+
+
+
 == links
 
 * https://medium.com/@TimvanBaarsen/how-to-run-an-elasticsearch-7-x-single-node-cluster-for-local-development-using-docker-compose-2b7ab73d8b82[Elastic single node]
 
 * https://docs.python.org/3/using/windows.html#the-microsoft-store-package[install python on Windows]
+
+* https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html[pandas read CSV]
 
 * https://elasticsearch-py.readthedocs.io/en/v7.11.0/api.html?highlight=update#elasticsearch[Elastic python API]
 
@@ -78,6 +141,10 @@ include::.env[]
 * https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[asciidoc]
 
 * https://stackoverflow.com/questions/56518032/windows-10-and-docker-container-logs-docker-logging-driver[see docker folder on Windows via WSL2]
+
+* https://github.com/docker/awesome-compose[docker compose with examples]
+
+* https://discuss.elastic.co/t/how-to-parse-load-json-file-or-txt-file-containing-json-to-logstash-using-grok/228246[logstash with elastic / parse json files]
 
 
 == additional commands collection 
@@ -127,3 +194,16 @@ include::.env[lines=1..2]
 * https://code.visualstudio.com/blogs/2019/10/31/inspecting-containers[Remote Debugging]
 
 try with https://github.com/h2oai/datatable[datable python] instead of pandas
+
+* https://www.docker.com/blog/containerized-python-development-part-3/[hot deployment pyhton with flask]
+
+
+== temp
+
+copy folder from inside Dev Container to remote machine
+
+[source, bash]
+----
+scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/
+----
+

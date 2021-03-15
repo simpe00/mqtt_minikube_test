@@ -78,5 +78,5 @@ def csv2elastic():
 
 if __name__ == '__main__':
     # run app
-    app.run(host=socket.gethostbyname(socket.gethostname()),
+    app.run(host=os.getenv('IPV4_ADRR'),
             port=int(os.getenv('PORT_API')))

@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  ubuntu:
+    container_name: ubuntu_server
+    ports:
+      - ${PORT_DEV_REMOTE_DEBUG}:${PORT_DEV_REMOTE_DEBUG}
+      - ${PORT_API}:${PORT_API}
+    environment:
+      - IPV4_ADRR=${IPV4_PROD_PYTHON_SERVER}
+    networks:
+      frontend:
+        ipv4_address: ${IPV4_PROD_PYTHON_SERVER}
+
+  grafana:
+    ports:
+      - ${PORT_GRAFANA}:${PORT_GRAFANA}
+    networks:
+      frontend:
+        ipv4_address: ${IPV4_PROD_GRAFANA}
+
+  kibana:
+    ports:
+      - ${PORT_KIBANA}:${PORT_KIBANA}
+    networks:
+      frontend:
+        ipv4_address: ${IPV4_PROD_KIBANA}
+
+networks:
+  frontend:
+    driver: macvlan
+    driver_opts: 
+      parent: eth0
+    ipam: 
+      driver: default
+      config: 
+        - subnet: ${IPV4_PROD_SUBNET}
