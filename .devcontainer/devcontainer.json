@@ -50,7 +50,9 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip3 install --user -r docker/requirements.txt",
+	//"postCreateCommand": "pip3 install --user -r docker/requirements.txt && cp /workspaces/Elastic/SSH/key1 ~/.ssh/key1",
+	"postCreateCommand": ".devcontainer/devcon.sh",
+	
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode",
@@ -66,7 +68,10 @@
 
 	"forwardPorts": [9200,5678],
 
-	"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
+	"mounts": [ 
+		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+		"source=projectname-bashhistory,target=/commandhistory,type=volume"
+	],
 
 	"remoteEnv": {
 		// the original host directory which is needed for volume 

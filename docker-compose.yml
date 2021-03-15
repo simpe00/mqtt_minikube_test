@@ -126,4 +126,3 @@ networks:
     ipam:
       config:
         - subnet: ${IPV4_SUBNET}
-          gateway: ${IPV4_GATEWAY}

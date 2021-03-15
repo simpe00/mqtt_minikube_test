@@ -7,7 +7,7 @@ servers:
     description: development
   - url: http://172.20.0.6:80 # see "curl" and try in bash.
     description: backend
-  - url: http://192.168.178.66:80 # see "curl" and try in bash.
+  - url: http://192.168.178.66:80 # Produktion on Rpi
     description: production
 
 

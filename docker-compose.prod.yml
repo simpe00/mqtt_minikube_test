@@ -8,6 +8,8 @@ services:
       - ${PORT_API}:${PORT_API}
     environment:
       - IPV4_ADRR=${IPV4_PROD_PYTHON_SERVER}
+    entrypoint: [ "python3", "-m", "debugpy", "--listen",
+     "${IPV4_PROD_PYTHON_SERVER}:${PORT_DEV_REMOTE_DEBUG}", "./main.py"]
     networks:
       frontend:
         ipv4_address: ${IPV4_PROD_PYTHON_SERVER}

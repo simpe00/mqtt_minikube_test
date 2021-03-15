@@ -207,3 +207,28 @@ copy folder from inside Dev Container to remote machine
 scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/
 ----
 
+start docker from SSH-Remote-Host (Pi) for production
+
+[source, bash]
+----
+docker-compose -f docker-compose.yml -f docker-compose.arm.yml -f docker-compose.prod.yml up --build --force-recreate -d
+----
+
+add local bind-mounts. Makes Hot-deployment possible
+
+[source, bash]
+----
+docker-compose -f ./docker-compose.yml -f ./docker-compose.local.yml up --build --force-recreate -d
+----
+
+
+[IMPORTANT]
+https://code.visualstudio.com/docs/remote/containers-advanced#_developing-inside-a-container-on-a-remote-docker-host
+
+=== SSH via devContainer
+
+
+sudo apt install openssh-server
+cp /workspaces/Elastic/SSH/key1 ~/.ssh/key1
+cp /workspaces/Elastic/SSH/config ~/.ssh/config
+sudo chmod 600 ~/.ssh/key1

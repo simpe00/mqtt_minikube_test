@@ -25,6 +25,21 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: Prod Remote Attach",
+            "type": "python",
+            "request": "attach",
+            "connect": {
+                "host": "${env:IPV4_PROD_PYTHON_SERVER}",
+                "port": "${env:PORT_DEV_REMOTE_DEBUG}"
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/src/ubuntu",
+                    "remoteRoot": "."
+                }
+            ]
         }
     ]
 }
