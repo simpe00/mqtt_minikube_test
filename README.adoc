@@ -75,6 +75,19 @@ include::.env[]
 sudo apt-get install docker-compose
 ----
 
+[IMPORTANT]
+docker-compose installed with pip. Other methods may lead to problems if using "remote" context because of causing a mismatch of OpenSSL versions.
+
+https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository[installing docker]
+
+[source, bash]
+----
+sudo apt  install docker.io
+----
+
+https://docs.docker.com/compose/install/#install-compose[installing docker-compose]
+
+
 . create docker context from Laptop/VSC and proof it
 
 [source, bash]
