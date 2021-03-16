@@ -1,6 +1,8 @@
 :toc:
 :icons: font
 :experimental:
+:source-highlighter: pygments
+:pygments-style: emacs
 
 = IOT with docker
 
@@ -225,6 +227,13 @@ start docker from SSH-Remote-Host (Pi) for production
 [source, bash]
 ----
 docker-compose -f docker-compose.yml -f docker-compose.arm.yml -f docker-compose.prod.yml up --build --force-recreate -d
+----
+
+
+.start docker from localhost (windows/devcontainer) on remote-host via SSH 
+[source#hello, bash]
+----
+docker-compose -H ssh://ubuntu@192.168.178.7 -f docker-compose.yml -f docker-compose.arm.yml -f docker-compose.prod.yml up --build --force-recreate -d 
 ----
 
 add local bind-mounts. Makes Hot-deployment possible
