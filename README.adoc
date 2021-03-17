@@ -161,6 +161,8 @@ scp /path/to/file username@a:/path/to/destination
 
 * https://discuss.elastic.co/t/how-to-parse-load-json-file-or-txt-file-containing-json-to-logstash-using-grok/228246[logstash with elastic / parse json files]
 
+* https://www.cyon.ch/support/a/ssh-key-erstellen[SSH key]
+
 
 == additional commands collection 
 
@@ -249,8 +251,8 @@ https://code.visualstudio.com/docs/remote/containers-advanced#_developing-inside
 
 === SSH via devContainer
 
-
-sudo apt install openssh-server
-cp /workspaces/Elastic/SSH/key1 ~/.ssh/key1
-cp /workspaces/Elastic/SSH/config ~/.ssh/config
-sudo chmod 600 ~/.ssh/key1
+.https://www.ssh.com/ssh/keygen/[Copying the Public Key to the Server]
+[source, bash]
+----
+ssh-copy-id -i ~/.ssh/id_rsa.pub user@host
+----

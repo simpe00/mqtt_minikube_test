@@ -74,11 +74,7 @@
 	],
 
 	"remoteEnv": {
-		// the original host directory which is needed for volume 
-		// mount commands from inside the container (Docker in Docker)
 		// https://linuxtut.com/de/776baeea9b26079a2add/
-		// "HOST_PROJECT_PATH": "${localWorkspaceFolder}",
-		// "COMPOSE_FORCE_WINDOWS_HOST": "true"
 	  },
 	
 }
