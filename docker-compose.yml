@@ -51,9 +51,6 @@ services:
      - ./.env
     ports:
       - ${PORT_LOGSTASH}:${PORT_LOGSTASH}
-    # volumes:
-      ###### - ./docker/pipline/:/usr/share/logstash/pipeline
-      # - ./docker/logstash/:/home/logs/
     depends_on: 
      - elasticsearch
     networks:
@@ -70,10 +67,6 @@ services:
       - ${PORT_GRAFANA}:${PORT_GRAFANA}
     env_file:
      - ./.env
-    # volumes:
-      # - ./docker/datasources/:/etc/grafana/provisioning/datasources/
-      # - ./docker/dashboards/:/etc/grafana/provisioning/dashboards/
-      # - ./docker/dashboards/json:/etc/dashboards/
     depends_on: 
       - elasticsearch
     networks:
@@ -92,30 +85,13 @@ services:
     ports:
       - ${PORT_DEV_REMOTE_DEBUG}:${PORT_DEV_REMOTE_DEBUG}
       - ${PORT_API}:${PORT_API}
-    # volumes:
-      # - ${localWorkspaceFolder}/src/ubuntu/:/usr/src/ubuntu/
-      # - ${HOST_PROJECT_PATH}/src/ubuntu/:/usr/src/ubuntu/
-      # - ./src/ubuntu/:/usr/src/ubuntu/
     entrypoint: [ "python3", "-m", "debugpy", "--listen",
      "${IPV4_PYTHON_SERVER}:${PORT_DEV_REMOTE_DEBUG}", "./main.py"]
-    # entrypoint: [ "python3", "-m", "debugpy", "--listen", "${IPV4_PYTHON_SERVER}:5678", "--wait-for-client", "./main.py"]
-    # command: "python3 -m debugpy --listen ${IPV4_PYTHON_SERVER}:5678 --wait-for-client ./main.py"
     stdin_open: true
     tty: true
     networks:
       backend:
         ipv4_address: ${IPV4_PYTHON_SERVER}
-
-#  python:
-#    container_name: python_run
-#    image: python_run
-#    build: 
-#      context: .
-#      dockerfile: ./docker/Dockerfile.py
-#    networks: 
-#      backend:
-#        ipv4_address: 172.20.0.8
-
 
 volumes:
   data01:
