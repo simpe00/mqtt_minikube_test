@@ -11,6 +11,21 @@
 
 == working with this project
 
+=== initial
+
+* https://code.visualstudio.com/download[VSC] with https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers[Remote-Containers]
+
+* https://docs.docker.com/docker-for-windows/install-windows-home/[docker on Windows]
+
+.https://www.ssh.com/ssh/keygen/[Copying the Public Key to the Server]
+[source, bash]
+----
+ssh-copy-id -i ~/.ssh/id_rsa.pub user@host
+----
+
+
+=== basic commands
+
 .freeze python requirements
 [source, BASH]
 ----
@@ -22,13 +37,6 @@ pip freeze > docker/requirements.txt
 ----
 docker-compose -f ./docker-compose.yml up --build --force-recreate -d
 ----
-
-//.start docker container from #inside# the devContainer
-//[source, BASH]
-//----
-//docker-compose -f ./docker-compose.yml up -d
-//----
-// problems with volumes
 
 .stop docker container
 [source, BASH]
@@ -51,47 +59,28 @@ include::.env[]
 ----
 
 
-== install docker
-
-* https://docs.docker.com/docker-for-windows/install-windows-home/[docker on Windows]
-
-* https://www.elastic.co/guide/en/elasticsearch/reference/7.11/docker.html[elasticsearch]
-
-* https://www.elastic.co/guide/en/kibana/current/docker.html[kibana]
-
-
-
-
 == docker remote deploying on raspberry
-
-* https://www.docker.com/blog/how-to-deploy-on-remote-docker-hosts-with-docker-compose/[tutorial]
 
 . install a OS on a SD-card
 
     e.g. UBUNTU SERVER 2.10 64bit
 
-. install docker-compose on raspberry
+. install https://docs.docker.com/compose/install/#alternative-install-options[docker-compose] and https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository[docker] on raspberry
 
++
 [source, bash]
 ----
-sudo apt-get install docker-compose
+sudo pip install docker-compose
+sudo apt install docker.io
 ----
++
 
++
 [IMPORTANT]
 docker-compose installed with pip. Other methods may lead to problems if using "remote" context because of causing a mismatch of OpenSSL versions.
-
-https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository[installing docker]
-
-[source, bash]
-----
-sudo apt  install docker.io
-----
-
-https://docs.docker.com/compose/install/#install-compose[installing docker-compose]
-
-
++
 . create docker context from Laptop/VSC and proof it
-
++
 [source, bash]
 ----
 docker context create remote --docker "host=ssh://ubuntu@192.168.178.7"
@@ -100,46 +89,40 @@ docker context ls
 
 docker context use remote
 ----
++
 
-or...
+[NOTE]
+if there are still problems with docker, try to https://github.com/sindresorhus/guides/blob/main/docker-without-sudo.md[add ubuntu user to docker group or have access via SSH for docker daemon ].
++
 
-* https://code.visualstudio.com/docs/containers/choosing-dev-environment#_remote-machine[VSC SSH docker deploying - tutorial]
+[NOTE]
+SSH key needs to be on the remote machine
 
-or 
++
 
-
- 
-. SSH: generate ssh key on localhost
-
-[source, cmd]
+.copy Project to remote machine / update Project files
+[source, bash]
 ----
-ssh-keygen
+scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/ //<1>
+rsync -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/Elastic //<2>
 ----
-
-. store public key (.pub) on your server via terminal
-
-[source, cmd]
-----
-scp /path/to/file username@a:/path/to/destination
-----
-
-    e.g. .\key1.pub ubuntu@192.168.178.7:/home/ubuntu/.ssh/authorized_keys
-
-
-
-* https://docs.docker.com/engine/install/linux-postinstall/[root for docker via SSH] 
-* https://github.com/sindresorhus/guides/blob/main/docker-without-sudo.md[add ubuntu user to docker group or have access via SSH for docker daemon ]
-
-
+<1> copy
+<2> update
 
 
 == links
 
 * https://medium.com/@TimvanBaarsen/how-to-run-an-elasticsearch-7-x-single-node-cluster-for-local-development-using-docker-compose-2b7ab73d8b82[Elastic single node]
 
+* https://www.elastic.co/guide/en/elasticsearch/reference/7.11/docker.html[elasticsearch - docker]
+
+* https://www.elastic.co/guide/en/kibana/current/docker.html[kibana - docker]
+
 * https://docs.python.org/3/using/windows.html#the-microsoft-store-package[install python on Windows]
 
 * https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html[pandas read CSV]
+
+* https://github.com/h2oai/datatable[datable python - alternative to pandas] 
 
 * https://elasticsearch-py.readthedocs.io/en/v7.11.0/api.html?highlight=update#elasticsearch[Elastic python API]
 
@@ -149,7 +132,7 @@ scp /path/to/file username@a:/path/to/destination
 
 * https://grafana.com/docs/grafana/latest/administration/provisioning/#dashboards[Provisioning Grafana]
 
-* https://stackoverflow.com/questions/38546755/docker-compose-keep-container-running/56690087[keep ubuntu container running]
+* https://stackoverflow.com/questions/38546755/docker-compose-keep-container-running/56690087[keep empty ubuntu container running]
 
 * https://stackoverflow.com/questions/38067511/start-an-existing-docker-ubuntu-container[ubuntu container: "take care"]
 
@@ -161,10 +144,24 @@ scp /path/to/file username@a:/path/to/destination
 
 * https://discuss.elastic.co/t/how-to-parse-load-json-file-or-txt-file-containing-json-to-logstash-using-grok/228246[logstash with elastic / parse json files]
 
+* https://code.visualstudio.com/blogs/2019/10/31/inspecting-containers[inspecting-containers]
+
 * https://www.cyon.ch/support/a/ssh-key-erstellen[SSH key]
 
+* https://www.docker.com/blog/how-to-deploy-on-remote-docker-hosts-with-docker-compose/[docker remote deploying with context - tutorial]
 
-== additional commands collection 
+* https://docs.docker.com/engine/install/linux-postinstall/[root for docker via SSH] 
+
+* https://code.visualstudio.com/docs/remote/containers-advanced#_developing-inside-a-container-on-a-remote-docker-host[Developing inside a container on a remote Docker host]
+
+
+== additional commands collection
+
+.copy file via SSH
+[source, cmd]
+----
+scp /path/to/file username@a:/path/to/destination
+----
 
 .get index from elastic
 [source, bash]
@@ -185,10 +182,10 @@ docker volume rm {VolumeName} # <1>
 ----
 <1> remove of developing volume
 
-.install elasticsearch with pip
+.copy folder from inside Dev Container to remote machine
 [source, bash]
 ----
-pip install elasticsearch
+scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/
 ----
 
 .clear logs of a container
@@ -197,40 +194,17 @@ pip install elasticsearch
 docker run --rm -v /var/lib/docker:/var/lib/docker alpine sh -c "echo '' > $(docker inspect --format='{{.LogPath}}' CONTAINER_NAME)"
 ----
 
-== todo
-
-* look at some interesting Extensions 
-
-include some variables from a file like:
-
-[subs="attributes"]
-----
-include::.env[lines=1..2]
-----
-
-* https://code.visualstudio.com/blogs/2019/10/31/inspecting-containers[Remote Debugging]
-
-try with https://github.com/h2oai/datatable[datable python] instead of pandas
-
-* https://www.docker.com/blog/containerized-python-development-part-3/[hot deployment pyhton with flask]
-
-
-== temp
-
-copy folder from inside Dev Container to remote machine
-
+.clear folder with files
 [source, bash]
 ----
-scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/
+sudo rm -r /path-to-folder
 ----
 
-start docker from SSH-Remote-Host (Pi) for production
-
+.start docker from SSH-Remote-Host (Pi) for production
 [source, bash]
 ----
-docker-compose -f docker-compose.yml -f docker-compose.arm.yml -f docker-compose.prod.yml up --build --force-recreate -d
+docker-compose -f docker-compose.yml -f docker-compose.arm.yml -f docker-compose.prod.yml -f docker-compose.local.yml up --build --force-recreate -d
 ----
-
 
 .start docker from localhost (windows/devcontainer) on remote-host via SSH 
 [source#hello, bash]
@@ -238,21 +212,11 @@ docker-compose -f docker-compose.yml -f docker-compose.arm.yml -f docker-compose
 docker-compose -H ssh://ubuntu@192.168.178.7 -f docker-compose.yml -f docker-compose.arm.yml -f docker-compose.prod.yml up --build --force-recreate -d 
 ----
 
-add local bind-mounts. Makes Hot-deployment possible
-
+.add local bind-mounts. Makes Hot-deployment possible
 [source, bash]
 ----
 docker-compose -f ./docker-compose.yml -f ./docker-compose.local.yml up --build --force-recreate -d
 ----
 
+== todo
 
-[IMPORTANT]
-https://code.visualstudio.com/docs/remote/containers-advanced#_developing-inside-a-container-on-a-remote-docker-host
-
-=== SSH via devContainer
-
-.https://www.ssh.com/ssh/keygen/[Copying the Public Key to the Server]
-[source, bash]
-----
-ssh-copy-id -i ~/.ssh/id_rsa.pub user@host
-----
