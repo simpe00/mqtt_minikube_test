@@ -25,6 +25,8 @@ else
 fi
 chmod 600 "${KEY_FILE}"
 
+eval "$(ssh-agent -s)"
+ssh-add
 
 # add remote context
 docker context create remote --docker "host=ssh://ubuntu@192.168.178.7"
