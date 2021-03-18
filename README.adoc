@@ -218,5 +218,21 @@ docker-compose -H ssh://ubuntu@192.168.178.7 -f docker-compose.yml -f docker-com
 docker-compose -f ./docker-compose.yml -f ./docker-compose.local.yml up --build --force-recreate -d
 ----
 
+== code testing
+
+.start testing script
+[source, bash]
+----
+./src/tests/runTests.sh 
+----
+
+[INFO]
+The output ist stored in the ``htmlcov`` folder. Open the ``index.html`` for your test coverage
+
 == todo
+
+    testing
+    look for production running
+    rename ubuntu and so on
+    restructuring?
 

@@ -23,7 +23,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'  # needed for swaggerUI extension
 
 # Hello world endpoint
 @app.route('/')
-@cross_origin()                              # needed for swaggerUI extension
+# @cross_origin()                              # needed for swaggerUI extension
 def hello():
     return 'Hello world!'
 

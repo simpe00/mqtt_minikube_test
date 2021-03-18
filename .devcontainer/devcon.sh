@@ -30,3 +30,9 @@ ssh-add
 
 # add remote context
 docker context create remote --docker "host=ssh://ubuntu@192.168.178.7"
+
+# add for testing
+chmod +x "$PWD/src/tests/runTests.sh"
+# install packages
+pip install -e "$PWD/src/"
+pip install -e "$PWD/src/ubuntu/"
