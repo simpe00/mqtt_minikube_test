@@ -7,4 +7,8 @@ coverage run -m pytest
 coverage report -m
 coverage html
 
+# move files
+mv "${TEST_PATH}/../htmlcov" "${TEST_PATH}/htmlcov"
+mv "${TEST_PATH}/../.coverage" "${TEST_PATH}/.coverage"
+
 cd "${TEMP_PATH}"

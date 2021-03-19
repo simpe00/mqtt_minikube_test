@@ -1,13 +1,14 @@
 # install python libs
 pip3 install --user -r docker/requirements.txt
 
-FOLDER_SSH="$PWD/SSH"
+SSH_FOLDER="$PWD/SSH"
+SRC_FOLDER="$PWD/src"
 KEY_FILE=~/.ssh/id_rsa
 KEY_PRO_FILE="$PWD/SSH/id_rsa"
 
 
-if ! test -d "${FOLDER_SSH}"; then
-    mkdir "${FOLDER_SSH}"
+if ! test -d "${SSH_FOLDER}"; then
+    mkdir "${SSH_FOLDER}"
 fi
 
 # load SSH keys
@@ -34,5 +35,8 @@ docker context create remote --docker "host=ssh://ubuntu@192.168.178.7"
 # add for testing
 chmod +x "$PWD/src/tests/runTests.sh"
 # install packages
-pip install -e "$PWD/src/"
-pip install -e "$PWD/src/pyserver/"
+pip install -e "${SRC_FOLDER}"
+pip install -e "${SRC_FOLDER}/pyserver/"
+
+# delete .egg
+find ${SRC_FOLDER} | grep  .egg | xargs rm -fr
