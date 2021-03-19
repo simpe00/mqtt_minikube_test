@@ -2,7 +2,7 @@ import os
 import pytest
 import json
 from flask import session
-from ubuntu import main as umain
+from pyserver import main as umain
 
 ####################################
 # https://realpython.com/python-testing/#how-to-structure-a-simple-test

@@ -35,4 +35,4 @@ docker context create remote --docker "host=ssh://ubuntu@192.168.178.7"
 chmod +x "$PWD/src/tests/runTests.sh"
 # install packages
 pip install -e "$PWD/src/"
-pip install -e "$PWD/src/ubuntu/"
+pip install -e "$PWD/src/pyserver/"

@@ -73,12 +73,12 @@ services:
       backend:
         ipv4_address: ${IPV4_GRAFANA}
 
-  ubuntu:
-    container_name: ubuntu_server
-    image: ubuntu_server
+  pyserver:
+    container_name: pyserver
+    image: pyserver
     build:
       context: .
-      dockerfile: ./docker/Dockerfile.ubuntu
+      dockerfile: ./docker/Dockerfile.pyserver
     environment: 
       - PORT_API=${PORT_API}
       - IPV4_ADRR=${IPV4_PYTHON_SERVER}

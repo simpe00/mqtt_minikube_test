@@ -12,9 +12,5 @@ COPY docker/requirements.txt /tmp/pip-tmp/
 RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
     && rm -rf /tmp/pip-tmp
 
-# COPY ./src/ubuntu/ /usr/src/ubuntu/
-ADD ./src/ubuntu/ /usr/src/ubuntu/
-WORKDIR /usr/src/ubuntu
-
-#ENTRYPOINT [ "python3", "./ubuntu/main.py", "debugpy", "--listen", "172.20.0.6:5678", "--wait-for-client", "-m"]
-#ENTRYPOINT [ "python3", "-m", "debugpy", "--listen", "172.20.0.6:5678", "--wait-for-client", "./main.py"]
+ADD ./src/pyserver/ /usr/src/pyserver/
+WORKDIR /usr/src/pyserver

@@ -13,8 +13,8 @@ services:
       - ./docker/dashboards/:/etc/grafana/provisioning/dashboards/
       - ./docker/dashboards/json:/etc/dashboards/
 
-  ubuntu:
+  pyserver:
     volumes:
-      # - ${localWorkspaceFolder}/src/ubuntu/:/usr/src/ubuntu/
-      # - ${HOST_PROJECT_PATH}/src/ubuntu/:/usr/src/ubuntu/
-      - ./src/ubuntu/:/usr/src/ubuntu/
+      # - ${localWorkspaceFolder}/src/pyserver/:/usr/src/pyserver/
+      # - ${HOST_PROJECT_PATH}/src/pyserver/:/usr/src/pyserver/
+      - ./src/pyserver/:/usr/src/pyserver/

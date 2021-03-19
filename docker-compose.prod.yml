@@ -1,8 +1,8 @@
 version: '3.7'
 
 services:
-  ubuntu:
-    container_name: ubuntu_server
+  pyserver:
+    container_name: pyserver
     ports:
       - ${PORT_DEV_REMOTE_DEBUG}:${PORT_DEV_REMOTE_DEBUG}
       - ${PORT_API}:${PORT_API}
