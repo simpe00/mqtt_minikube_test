@@ -84,6 +84,6 @@ def csv2elastic():
 
 if __name__ == '__main__':
     # run app / debug for calling reloader for hot-reload
-    app.run(host=os.getenv('IPV4_ADRR'),
+    app.run(host=os.getenv('IPV4_PYTHON_SERVER'),
             port=int(os.getenv('PORT_API')),
             debug=True)

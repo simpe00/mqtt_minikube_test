@@ -6,7 +6,7 @@ from datetime import datetime
 
 # connect to the Elasticsearch cluster
 es = Elasticsearch([{
-    'host': os.getenv('IPV4_ADRR'),
+    'host': os.getenv('IPV4_ELASTICSEARCH'),
     'port': int(os.getenv('PORT_ELASTIC_1'))
     }])
 
