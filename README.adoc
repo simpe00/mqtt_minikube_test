@@ -226,8 +226,10 @@ docker-compose -f ./docker-compose.yml -f ./docker-compose.local.yml up --build 
 ./src/tests/runTests.sh 
 ----
 
-[INFO]
-The output ist stored in the ``htmlcov`` folder. Open the ``index.html`` for your test coverage
+[NOTE]
+The output ist stored in the ``htmlcov`` folder. Open the ``index.html`` for an overview of your test coverage.
+
+For writing tests see the https://flask.palletsprojects.com/en/1.1.x/tutorial/tests/[flask tutorial].
 
 == todo
 

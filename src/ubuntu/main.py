@@ -16,7 +16,13 @@ logging.basicConfig(format='%(asctime)s.%(msecs)03d %(levelname)s'
                     filemode='w',
                     level=logging.INFO)
 
-app = Flask(__name__)
+
+def creat_app():
+    app = Flask(__name__)
+    return app
+
+
+app = creat_app()
 cors = CORS(app)                             # needed for swaggerUI extension
 app.config['CORS_HEADERS'] = 'Content-Type'  # needed for swaggerUI extension
 
