@@ -7,7 +7,7 @@ services:
       - ${PORT_DEV_REMOTE_DEBUG}:${PORT_DEV_REMOTE_DEBUG}
       - ${PORT_API}:${PORT_API}
     environment:
-      - IPV4_ADRR=${IPV4_PROD_PYTHON_SERVER}
+      - IPV4_ADDR=${IPV4_PROD_PYTHON_SERVER}
     entrypoint: [ "python3", "-m", "debugpy", "--listen",
      "${IPV4_PROD_PYTHON_SERVER}:${PORT_DEV_REMOTE_DEBUG}", "./main.py"]
     networks:

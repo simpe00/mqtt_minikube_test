@@ -80,7 +80,9 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile.pyserver
     env_file:
-     - ./.env
+     - ./.env    
+    environment:
+      - IPV4_ADDR=${IPV4_PYTHON_SERVER}
     ports:
       - ${PORT_DEV_REMOTE_DEBUG}:${PORT_DEV_REMOTE_DEBUG}
       - ${PORT_API}:${PORT_API}
