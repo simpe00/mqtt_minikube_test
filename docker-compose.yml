@@ -79,9 +79,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile.pyserver
-    environment: 
-      - PORT_API=${PORT_API}
-      - IPV4_ADRR=${IPV4_PYTHON_SERVER}
+    env_file:
+     - ./.env
     ports:
       - ${PORT_DEV_REMOTE_DEBUG}:${PORT_DEV_REMOTE_DEBUG}
       - ${PORT_API}:${PORT_API}

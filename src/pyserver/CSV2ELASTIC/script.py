@@ -1,11 +1,14 @@
 from elasticsearch import Elasticsearch
 import time  # for the index's ""timestamp"" field
+import os
 from datetime import datetime
 
 
 # connect to the Elasticsearch cluster
-es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
-# or: Elasticsearch([{'host': 'localhost', 'port': 9200}])
+es = Elasticsearch([{
+    'host': os.getenv('IPV4_ADRR'),
+    'port': int(os.getenv('PORT_ELASTIC_1'))
+    }])
 
 '''
 The 'hosts' parameter is optional:

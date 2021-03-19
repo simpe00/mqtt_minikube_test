@@ -12,13 +12,17 @@ import os
 import numpy as np
 from elasticsearch import Elasticsearch
 import time
-#from elasticsearch import helpers
+# from elasticsearch import helpers
 # from datetime import datetime
 
 # https://towardsdatascience.com/exporting-pandas-data-to-elasticsearch-724aa4dd8f62
 # https://stackoverflow.com/questions/49726229/how-to-export-pandas-data-to-elasticsearch/49982341
 
-es = Elasticsearch([{'host': '172.20.0.3', 'port': 9200}])
+es = Elasticsearch([{
+    'host': os.getenv('IPV4_ADRR'),
+    'port': int(os.getenv('PORT_ELASTIC_1'))
+    }])
+
         
 def rec_to_actions(df,indexStr):
     import json

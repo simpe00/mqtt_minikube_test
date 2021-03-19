@@ -4,10 +4,14 @@ Created on Wed Feb 17 15:36:34 2021
 
 @author: Simsi
 """
+import os
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
 
-es = Elasticsearch([{'host': '172.20.0.3', 'port': 9200}])
+es = Elasticsearch([{
+    'host': os.getenv('IPV4_ADRR'),
+    'port': int(os.getenv('PORT_ELASTIC_1'))
+    }])
 
 """"
 actionsDel = [
