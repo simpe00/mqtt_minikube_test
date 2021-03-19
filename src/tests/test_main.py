@@ -56,7 +56,12 @@ def test_csv2elastic(client, indexname, filename):
         query_string={'indexname': indexname, 'filename': filename}
     )
     jsondata = json.loads(response.data.decode('utf8'))
-    assert (jsondata['status'] == 'ERROR') is True
+
+    if (indexname == 'Test'):
+        assert (jsondata['status'] == 'ERROR') is True
+
+    if (indexname == 'countryvaccinations'):
+        assert (jsondata['status'] == 'DONE') is True
 
 
 def test_environment(client):
