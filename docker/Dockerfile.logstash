@@ -3,8 +3,7 @@ FROM docker.elastic.co/logstash/logstash:7.3.2
 # copy a loglife for investigation
 COPY docker/logstash/ /home/logs/
 
-
 RUN rm -f /usr/share/logstash/pipeline/logstash.conf
 
-# ADD ./docker/logstash/logstash.yml /usr/share/logstash/config/logstash.yml
-ADD ./docker/logstash/logstash.conf /usr/share/logstash/pipeline/logstash.conf
+ADD ./docker/logstash/settings/ /usr/share/logstash/config/
+ADD ./docker/logstash/conf/ /usr/share/logstash/pipeline/

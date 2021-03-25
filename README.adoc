@@ -154,6 +154,19 @@ rsync -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/Elastic --delete
 
 * https://code.visualstudio.com/docs/remote/containers-advanced#_developing-inside-a-container-on-a-remote-docker-host[Developing inside a container on a remote Docker host]
 
+=== logstash
+
+* https://www.elastic.co/guide/en/logstash/current/dir-layout.html[directorie Layout - logstash]
+
+* https://github.com/rossiya/pihole-docker-logstash/tree/master/logstash/pipeline[example - github]
+
+* https://www.elastic.co/guide/en/logstash/current/logstash-settings-file.html[logstash.yml - not used]
+
+* https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html[pipelines.yml]
+
+* https://www.elastic.co/guide/en/logstash/current/pipeline.html[pipline - Input - Filter - Output]
+
+
 
 == additional commands collection
 
@@ -231,9 +244,11 @@ The output ist stored in the ``htmlcov`` folder. Open the ``index.html`` for an 
 
 For writing tests see the https://flask.palletsprojects.com/en/1.1.x/tutorial/tests/[flask tutorial].
 
+
 == todo
 
-    look for production running
-    rename ubuntu and so on
-    restructuring?
+.logstash read via Websocket? 
+
+* https://www.elastic.co/guide/en/logstash/current/input-plugins.html[Link]
+* https://www.elastic.co/guide/en/logstash/current/plugins-inputs-websocket.html[Websocket]
 

@@ -6,6 +6,7 @@ services:
     volumes:
       ###### - ./docker/pipline/:/usr/share/logstash/pipeline
       - ./docker/logstash/:/home/logs/
+      - ./src/pyserver/res/:/home/res/
 
   grafana:
     volumes:
