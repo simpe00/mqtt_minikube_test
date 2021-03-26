@@ -103,8 +103,8 @@ SSH key needs to be on the remote machine
 .copy Project to remote machine / update Project files
 [source, bash]
 ----
-scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/ //<1>
-rsync -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/Elastic --delete //<2>
+scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/ --exclude "SSH" //<1>
+rsync -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/Elastic --delete --exclude "SSH" //<2>
 ----
 <1> copy
 <2> update
@@ -112,21 +112,7 @@ rsync -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/Elastic --delete
 
 == links
 
-* https://medium.com/@TimvanBaarsen/how-to-run-an-elasticsearch-7-x-single-node-cluster-for-local-development-using-docker-compose-2b7ab73d8b82[Elastic single node]
-
-* https://www.elastic.co/guide/en/elasticsearch/reference/7.11/docker.html[elasticsearch - docker]
-
-* https://www.elastic.co/guide/en/kibana/current/docker.html[kibana - docker]
-
-* https://docs.python.org/3/using/windows.html#the-microsoft-store-package[install python on Windows]
-
-* https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html[pandas read CSV]
-
-* https://github.com/h2oai/datatable[datable python - alternative to pandas] 
-
-* https://elasticsearch-py.readthedocs.io/en/v7.11.0/api.html?highlight=update#elasticsearch[Elastic python API]
-
-* https://kb.objectrocket.com/elasticsearch/how-to-use-python-helpers-to-bulk-load-data-into-an-elasticsearch-index[JSON bulk to Elastic with helpers]
+=== general
 
 * https://grafana.com/docs/grafana/latest/dashboards/json-model/[grafana dashboard JSON model]
 
@@ -138,21 +124,47 @@ rsync -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/Elastic --delete
 
 * https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[asciidoc]
 
+
+=== python 
+
+* https://docs.python.org/3/using/windows.html#the-microsoft-store-package[install python on Windows]
+
+* https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html[pandas read CSV]
+
+* https://github.com/h2oai/datatable[datable python - alternative to pandas] 
+
+
+=== elasticsearch
+
+* https://medium.com/@TimvanBaarsen/how-to-run-an-elasticsearch-7-x-single-node-cluster-for-local-development-using-docker-compose-2b7ab73d8b82[Elastic single node]
+
+* https://elasticsearch-py.readthedocs.io/en/v7.11.0/api.html?highlight=update#elasticsearch[Elastic python API]
+
+* https://kb.objectrocket.com/elasticsearch/how-to-use-python-helpers-to-bulk-load-data-into-an-elasticsearch-index[JSON bulk to Elastic with helpers]
+
+* https://www.elastic.co/guide/en/elasticsearch/reference/7.11/docker.html[elasticsearch - docker]
+
+* https://www.elastic.co/guide/en/kibana/current/docker.html[kibana - docker]
+
+
+=== docker
+
 * https://stackoverflow.com/questions/56518032/windows-10-and-docker-container-logs-docker-logging-driver[see docker folder on Windows via WSL2]
 
 * https://github.com/docker/awesome-compose[docker compose with examples]
 
-* https://discuss.elastic.co/t/how-to-parse-load-json-file-or-txt-file-containing-json-to-logstash-using-grok/228246[logstash with elastic / parse json files]
-
 * https://code.visualstudio.com/blogs/2019/10/31/inspecting-containers[inspecting-containers]
-
-* https://www.cyon.ch/support/a/ssh-key-erstellen[SSH key]
 
 * https://www.docker.com/blog/how-to-deploy-on-remote-docker-hosts-with-docker-compose/[docker remote deploying with context - tutorial]
 
+* https://code.visualstudio.com/docs/remote/containers-advanced#_developing-inside-a-container-on-a-remote-docker-host[Developing inside a container on a remote Docker host]
+
+=== SSH
+
+* https://www.cyon.ch/support/a/ssh-key-erstellen[SSH key]
+
 * https://docs.docker.com/engine/install/linux-postinstall/[root for docker via SSH] 
 
-* https://code.visualstudio.com/docs/remote/containers-advanced#_developing-inside-a-container-on-a-remote-docker-host[Developing inside a container on a remote Docker host]
 
 === logstash
 
@@ -165,6 +177,8 @@ rsync -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/Elastic --delete
 * https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html[pipelines.yml]
 
 * https://www.elastic.co/guide/en/logstash/current/pipeline.html[pipline - Input - Filter - Output]
+
+* https://discuss.elastic.co/t/how-to-parse-load-json-file-or-txt-file-containing-json-to-logstash-using-grok/228246[logstash with elastic / parse json files]
 
 
 
@@ -198,7 +212,7 @@ docker volume rm {VolumeName} # <1>
 .copy folder from inside Dev Container to remote machine
 [source, bash]
 ----
-scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/
+scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/ --exclude "SSH"
 ----
 
 .clear logs of a container
@@ -252,3 +266,5 @@ For writing tests see the https://flask.palletsprojects.com/en/1.1.x/tutorial/te
 * https://www.elastic.co/guide/en/logstash/current/input-plugins.html[Link]
 * https://www.elastic.co/guide/en/logstash/current/plugins-inputs-websocket.html[Websocket]
 
+
+ add .env Versions to Dokerfile
