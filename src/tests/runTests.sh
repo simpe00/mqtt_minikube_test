@@ -9,7 +9,8 @@ coverage html
 
 # move files
 if  test -d "${TEST_PATH}/htmlcov"; then
-    rysnc -r "${TEST_PATH}/../htmlcov" "${TEST_PATH}/htmlcov" --delete
+    rsync -r "${TEST_PATH}/../htmlcov/" "${TEST_PATH}/htmlcov" --delete
+    rm -r "${TEST_PATH}/../htmlcov"
 else
     mv "${TEST_PATH}/../htmlcov" "${TEST_PATH}/htmlcov"
 fi
