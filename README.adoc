@@ -268,3 +268,5 @@ For writing tests see the https://flask.palletsprojects.com/en/1.1.x/tutorial/te
 
 
  add .env Versions to Dokerfile
+
+ bug in htmlcov mv --> rysnc and delete is also an option
