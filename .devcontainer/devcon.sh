@@ -1,5 +1,5 @@
 # install python libs
-pip3 install --user -r docker/requirements.txt
+# pip3 install --user -r docker/requirements.txt
 
 SSH_FOLDER="$PWD/SSH"
 SRC_FOLDER="$PWD/src"
@@ -29,14 +29,20 @@ chmod 600 "${KEY_FILE}"
 eval "$(ssh-agent -s)"
 ssh-add
 
-# add remote context
-docker context create remote --docker "host=ssh://ubuntu@192.168.178.7"
-
-# add for testing
-chmod +x "$PWD/src/tests/runTests.sh"
 # install packages
-pip install -e "${SRC_FOLDER}"
-pip install -e "${SRC_FOLDER}/pyserver/"
+# pip install -e "${SRC_FOLDER}"
 
 # delete .egg
-find ${SRC_FOLDER} | grep  .egg | xargs rm -fr
+# find ${SRC_FOLDER} | grep  .egg | xargs rm -fr
+
+# install mosquitto
+# apt-get install mosquitto -y
+apt-get install mosquitto-clients -y
+
+
+## new kubcluster
+# Linux
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-linux-amd64 -o kompose
+
+chmod +x kompose
+sudo mv ./kompose /usr/local/bin/kompose

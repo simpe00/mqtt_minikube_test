@@ -10,8 +10,8 @@
 			// Update 'VARIANT' to pick a Python version: 3, 3.6, 3.7, 3.8, 3.9
 			"VARIANT": "3.9",
 			// Options
-			"INSTALL_NODE": "true",
-			"NODE_VERSION": "lts/*"
+			// "INSTALL_NODE": "true",
+			// "NODE_VERSION": "lts/*"
 		}
 	},
 
@@ -59,14 +59,12 @@
 
 	// add to existing network
 	"runArgs": [
-		"--network=bwp_elk_test_backend",
+		"--network=mqtt_test_backend",
 		"--ip=${localEnv:IPV4_DEVCONTAINER}",
-		"--name=devContainerPython",
+		"--name=devContainerMqtt",
 		"--init",
 		"--env-file",".env"	
 	],
-
-	"forwardPorts": [9200,5678],
 
 	"mounts": [ 
 		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",

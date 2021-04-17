@@ -6,8 +6,6 @@
 
 = IOT with docker
 
-// variables
-:VolumeName : bwp_elk_test_data01
 
 == working with this project
 
@@ -114,73 +112,7 @@ rsync -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/Elastic --delete
 
 === general
 
-* https://grafana.com/docs/grafana/latest/dashboards/json-model/[grafana dashboard JSON model]
-
-* https://grafana.com/docs/grafana/latest/administration/provisioning/#dashboards[Provisioning Grafana]
-
-* https://stackoverflow.com/questions/38546755/docker-compose-keep-container-running/56690087[keep empty ubuntu container running]
-
-* https://stackoverflow.com/questions/38067511/start-an-existing-docker-ubuntu-container[ubuntu container: "take care"]
-
-* https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[asciidoc]
-
-
-=== python 
-
-* https://docs.python.org/3/using/windows.html#the-microsoft-store-package[install python on Windows]
-
-* https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html[pandas read CSV]
-
-* https://github.com/h2oai/datatable[datable python - alternative to pandas] 
-
-
-=== elasticsearch
-
-* https://medium.com/@TimvanBaarsen/how-to-run-an-elasticsearch-7-x-single-node-cluster-for-local-development-using-docker-compose-2b7ab73d8b82[Elastic single node]
-
-* https://elasticsearch-py.readthedocs.io/en/v7.11.0/api.html?highlight=update#elasticsearch[Elastic python API]
-
-* https://kb.objectrocket.com/elasticsearch/how-to-use-python-helpers-to-bulk-load-data-into-an-elasticsearch-index[JSON bulk to Elastic with helpers]
-
-* https://www.elastic.co/guide/en/elasticsearch/reference/7.11/docker.html[elasticsearch - docker]
-
-* https://www.elastic.co/guide/en/kibana/current/docker.html[kibana - docker]
-
-
-=== docker
-
-* https://stackoverflow.com/questions/56518032/windows-10-and-docker-container-logs-docker-logging-driver[see docker folder on Windows via WSL2]
-
-* https://github.com/docker/awesome-compose[docker compose with examples]
-
-* https://code.visualstudio.com/blogs/2019/10/31/inspecting-containers[inspecting-containers]
-
-* https://www.docker.com/blog/how-to-deploy-on-remote-docker-hosts-with-docker-compose/[docker remote deploying with context - tutorial]
-
-* https://code.visualstudio.com/docs/remote/containers-advanced#_developing-inside-a-container-on-a-remote-docker-host[Developing inside a container on a remote Docker host]
-
-=== SSH
-
-* https://www.cyon.ch/support/a/ssh-key-erstellen[SSH key]
-
-* https://docs.docker.com/engine/install/linux-postinstall/[root for docker via SSH] 
-
-
-=== logstash
-
-* https://www.elastic.co/guide/en/logstash/current/dir-layout.html[directorie Layout - logstash]
-
-* https://github.com/rossiya/pihole-docker-logstash/tree/master/logstash/pipeline[example - github]
-
-* https://www.elastic.co/guide/en/logstash/current/logstash-settings-file.html[logstash.yml - not used]
-
-* https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html[pipelines.yml]
-
-* https://www.elastic.co/guide/en/logstash/current/pipeline.html[pipline - Input - Filter - Output]
-
-* https://discuss.elastic.co/t/how-to-parse-load-json-file-or-txt-file-containing-json-to-logstash-using-grok/228246[logstash with elastic / parse json files]
-
-
+https://github.com/FreeOpcUa/opcua-asyncio[python opc ua lib]
 
 == additional commands collection
 
@@ -190,24 +122,11 @@ rsync -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/Elastic --delete
 scp /path/to/file username@a:/path/to/destination
 ----
 
-.get index from elastic
-[source, bash]
-----
-curl -X GET "localhost:9200/_cat/indices/*?v=true&s=index&pretty"
-----
-
 .enter a container
 [source, cmd]
 ----
 docker exec -it ubuntu_server bash  
 ----
-
-.remove Volume
-[source, cmd, subs="attributes+"]
-----
-docker volume rm {VolumeName} # <1>
-----
-<1> remove of developing volume
 
 .copy folder from inside Dev Container to remote machine
 [source, bash]
@@ -215,17 +134,6 @@ docker volume rm {VolumeName} # <1>
 scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/ --exclude "SSH"
 ----
 
-.clear logs of a container
-[source, bash]
-----
-docker run --rm -v /var/lib/docker:/var/lib/docker alpine sh -c "echo '' > $(docker inspect --format='{{.LogPath}}' CONTAINER_NAME)"
-----
-
-.clear folder with files
-[source, bash]
-----
-sudo rm -r /path-to-folder
-----
 
 .start docker from SSH-Remote-Host (Pi) for production
 [source, bash]
@@ -245,28 +153,36 @@ docker-compose -H ssh://ubuntu@192.168.178.7 -f docker-compose.yml -f docker-com
 docker-compose -f ./docker-compose.yml -f ./docker-compose.local.yml up --build --force-recreate -d
 ----
 
-== code testing
-
-.start testing script
-[source, bash]
-----
-./src/tests/runTests.sh 
-----
-
-[NOTE]
-The output ist stored in the ``htmlcov`` folder. Open the ``index.html`` for an overview of your test coverage.
-
-For writing tests see the https://flask.palletsprojects.com/en/1.1.x/tutorial/tests/[flask tutorial].
-
-
 == todo
 
-.logstash read via Websocket? 
+docker-compose -f docker-compose.yml  up --build --force-recreate -d
 
-* https://www.elastic.co/guide/en/logstash/current/input-plugins.html[Link]
-* https://www.elastic.co/guide/en/logstash/current/plugins-inputs-websocket.html[Websocket]
+docker-compose -f docker-compose.yml  down
 
 
- add .env Versions to Dokerfile
 
- bug in htmlcov mv --> rysnc and delete is also an option
+
+
+
+
+############ new
+
+docker-compose -f ./docker-compose.yml up --build --force-recreate -d
+User:"devUser"
+PW:
+"nrg0njvkfr94tngfJBNBNEINBE§h7h0r_30k94jt39jt#+***43Q"
+
+https://centurio.net/2019/12/16/configure-mosquitto-mqtt-broker-user-authentication-in-docker-running-on-synology-nas/
+
+
+https://mosquitto.org/documentation/authentication-methods/
+
+https://mosquitto.org/documentation/dynamic-security/#configuring-default-access
+
+https://mosquitto.org/documentation/migrating-to-2-0/
+
+https://github.com/thelebster/example-mosquitto-simple-auth-docker/blob/master/Dockerfile
+
+https://github.com/eclipse/mosquitto/tree/1c79920d78321c69add9d6d6f879dd73387bc25e/docker/2.0-openssl
+
+https://github.com/eclipse/mosquitto/blob/1c79920d78321c69add9d6d6f879dd73387bc25e/docker/2.0/Dockerfile

@@ -1,102 +1,22 @@
 version: '3.7'
 
-services:
-  # Elasticsearch Docker Images: https://www.docker.elastic.co/
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERS}
-    container_name: elasticsearch
-    environment:
-      - node.name=BW_node
-      - discovery.type=single-node
-      - bootstrap.memory_lock=true          # dev
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"    # dev
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
+services: 
+  mosquitto:
+    image: eclipse-mosquitto:${MOSQUITTO_VERS}
+    container_name: mqtt
+    restart: always
     volumes:
-      - data01:/usr/share/elasticsearch/data
-    cap_add:
-      - IPC_LOCK
+      - ./docker/mosquitto/config:/mosquitto/config
+      - ./docker/mosquitto/config/mosquitto.passwd:/mosquitto/config/mosquitto.passwd
+    #   - ./docker/mosquitto/data:/mosquitto/data
+    #   - ./docker/mosquitto/log:/mosquitto/log
     ports:
-      - ${PORT_ELASTIC_1}:${PORT_ELASTIC_1}
-      - ${PORT_ELASTIC_2}:${PORT_ELASTIC_2}
+      - ${PORT_MOSQUITTO_1}:${PORT_MOSQUITTO_1}
+      - ${PORT_MOSQUITTO_2}:${PORT_MOSQUITTO_2}
     networks:
       backend:
-        ipv4_address: ${IPV4_ELASTICSEARCH} 
+        ipv4_address: ${IPV4_MOSQUITTO}
 
-  kibana:
-    container_name: kibana
-    image: docker.elastic.co/kibana/kibana:${KIBANA_VERS}
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:${PORT_ELASTIC_1}
-    ports:
-      - ${PORT_KIBANA}:${PORT_KIBANA}
-    links:
-      - elasticsearch
-    networks:
-      backend:
-        ipv4_address: ${IPV4_KIBANA}
-
-  logstash:
-    container_name: logstash
-    image: logstash
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile.logstash
-    env_file:
-     - ./.env
-    ports:
-      - ${PORT_LOGSTASH}:${PORT_LOGSTASH}
-    depends_on: 
-     - elasticsearch
-    networks:
-      backend:
-        ipv4_address: ${IPV4_LOGSTASH}
-
-  grafana:
-    container_name: grafana
-    image: grafana
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile.grafana
-    ports:
-      - ${PORT_GRAFANA}:${PORT_GRAFANA}
-    env_file:
-     - ./.env
-    depends_on: 
-      - elasticsearch
-    networks:
-      backend:
-        ipv4_address: ${IPV4_GRAFANA}
-
-  pyserver:
-    container_name: pyserver
-    image: pyserver
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile.pyserver
-    env_file:
-     - ./.env    
-    environment:
-      - IPV4_ADDR=${IPV4_PYTHON_SERVER}
-    ports:
-      - ${PORT_DEV_REMOTE_DEBUG}:${PORT_DEV_REMOTE_DEBUG}
-      - ${PORT_API}:${PORT_API}
-    entrypoint: [ "python3", "-m", "debugpy", "--listen",
-     "${IPV4_PYTHON_SERVER}:${PORT_DEV_REMOTE_DEBUG}", "./main.py"]
-    stdin_open: true
-    tty: true
-    networks:
-      backend:
-        ipv4_address: ${IPV4_PYTHON_SERVER}
-
-volumes:
-  data01:
-    driver: local
 
 networks:
   backend:
