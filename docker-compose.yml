@@ -16,6 +16,13 @@ services:
     networks:
       backend:
         ipv4_address: ${IPV4_MOSQUITTO}
+      frontend:
+        ipv4_address: ${IPV4_PROD_MQTT}
+    deploy:
+      mode: replicated
+      replicas: 1
+      endpoint_mode: dnsrr
+
 
 
 networks:
@@ -23,3 +30,19 @@ networks:
     ipam:
       config:
         - subnet: ${IPV4_SUBNET}
+
+# networks:
+#   frontend:
+#     ipam:
+#       config:
+#         - subnet: ${IPV4_PROD_SUBNET}
+        
+networks:
+  frontend:
+    driver: bridge
+    driver_opts: 
+      parent: eth0
+    ipam: 
+      driver: default
+      config: 
+        - subnet: ${IPV4_PROD_SUBNET}

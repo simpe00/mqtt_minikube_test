@@ -4,6 +4,7 @@
 SSH_FOLDER="$PWD/SSH"
 SRC_FOLDER="$PWD/src"
 KEY_FILE=~/.ssh/id_rsa
+ROOT_SSH_FOLDER=~/.ssh
 KEY_PRO_FILE="$PWD/SSH/id_rsa"
 
 
@@ -20,7 +21,7 @@ if test -f "${KEY_PRO_FILE}"; then
 else
     # key is needed to creat
     ssh-keygen -f "${KEY_FILE}"
-    cp "${KEY_FILE}.pub" "$KEY_PRO_FILE.pub"
+    cp "${KEY_FILE}.pub" "${KEY_PRO_FILE}.pub"
     cp "${KEY_FILE}" "$KEY_PRO_FILE"
     echo -e "\nyou have generated an key for SSH. the public key need to be on your remote machine"
 fi
@@ -29,20 +30,13 @@ chmod 600 "${KEY_FILE}"
 eval "$(ssh-agent -s)"
 ssh-add
 
-# install packages
-# pip install -e "${SRC_FOLDER}"
+rm "${ROOT_SSH_FOLDER}/known_hosts"
 
-# delete .egg
-# find ${SRC_FOLDER} | grep  .egg | xargs rm -fr
-
-# install mosquitto
-# apt-get install mosquitto -y
 apt-get install mosquitto-clients -y
 
-
-## new kubcluster
-# Linux
+# kompose 
 curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-linux-amd64 -o kompose
-
 chmod +x kompose
 sudo mv ./kompose /usr/local/bin/kompose
+
+

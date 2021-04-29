@@ -110,6 +110,18 @@ rsync -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/Elastic --delete
 
 == links
 
+https://github.com/microsoft/vscode-dev-containers/tree/master/containers/kubernetes-helm[kubernetes for devcontainer]
+
+https://www.it.iitb.ac.in/frg/wiki/images/b/b5/P3_FRG_REPORT.pdf[describe kompose]
+
+https://opensource.com/article/20/6/kubernetes-raspberry-pi[on rpi]
+
+https://www.zepworks.com/posts/access-minikube-remotely-kvm/[Remote to Minikube]
+
+https://github.com/kubernetes/kompose/blob/master/docs/getting-started.md[getting started with kompose]
+
+https://dev.to/gvelrajan/configure-local-kubectl-to-remote-access-kubernetes-cluster-2g81[configure local kubectl to remote access kubernetes cluster]
+
 === general
 
 https://github.com/FreeOpcUa/opcua-asyncio[python opc ua lib]
@@ -153,36 +165,212 @@ docker-compose -H ssh://ubuntu@192.168.178.7 -f docker-compose.yml -f docker-com
 docker-compose -f ./docker-compose.yml -f ./docker-compose.local.yml up --build --force-recreate -d
 ----
 
+### new
+
+
+== working with mosquitto - mqtt
+
+=== links
+
+https://centurio.net/2019/12/16/configure-mosquitto-mqtt-broker-user-authentication-in-docker-running-on-synology-nas/[mosquitto server with docker - user authentication]
+
+https://mosquitto.org/documentation/authentication-methods/[mosquitto - Authentication - Passwordfile]
+
+== using docker-compose
+
+=== commands
+
+.docker up
+[source, bash]
+----
+docker-compose -f ./docker-compose.yml up --build --force-recreate -d
+----
+
+.docker down
+[source, bash]
+----
+docker-compose -f docker-compose.yml  down
+----
+
+
+
+
+== install kubernetes / minikube / kubectl
+
+https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/#install-kubectl-binary-with-curl-on-windows[install kubectl]
+
+https://www.docker.com/blog/docker-windows-desktop-now-kubernetes/[kubectl with Docker Desktop]
+
+https://kubernetes.io/de/docs/tasks/tools/install-minikube/[install kubectl]
+
+https://chocolatey.org/install[install chocolatey]
+
+
+[source, powershell]
+----
+Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform
+----
+
+.start minikube on windows
+[source, powershell]
+----
+minikube start
+----
+
+.check if file exists on remote host
+[source, bash]
+----
+ssh ubuntu@192.168.178.7 test -f "~/.kube/config"
+----
+
+.mqtt commands
+[source, bash]
+----
+mosquitto_sub -t "test" -h 192.168.178.7 -u "devUser" -P "nrg0njvkfr94tngfJBNBNEINBE§h7h0r_30k94jt39jt#+***43Q" # <1>
+mosquitto_pub -t "test" -h 192.168.178.7 -u "devUser" -P "nrg0njvkfr94tngfJBNBNEINBE§h7h0r_30k94jt39jt#+***43Q" -m "myMessage" # <2>
+----
+<1> subscribe to mqtt-broker
+<2> publish to mqtt broker
+
+.generate kubernetes manifest from docker-compose on the Raspberry
+[source, bash]
+----
+docker-compose config > docker-compose-resolved.yaml && kompose convert -f docker-compose-resolved.yaml --volumes hostPath --out minikube.yaml
+----
+
+.add to the ``minikube.yaml`` to the service
+[source, minikube.yaml]
+----
+      selector:
+        io.kompose.service: mosquitto
+      type: LoadBalancer
+      externalIPs:
+      - 192.168.178.7 # <1>
+----
+<1> IP of the Raspberry Pi
+
+.deyploy service to minikube
+[source, bash]
+----
+kubectl apply -f minikube.yaml
+----
+
+[NOTE]
+if there is an Error X509 you can try kubectl wit ``--insecure-skip-tls-verify`` flag
+
+
+.examples for kubectl use
+[source, bash]
+----
+kubectl get svc hello-minikube # <1>
+kubectl delete svc hello-minikube # <2>
+kubectl delete deployments hello-minikube # <2>
+kubectl create deployment hello-minikube --image=gcr.io/google_containers/echoserver:1.4 --port=8080 # <3>
+kubectl expose deployment hello-minikube --type=LoadBalancer --port 8080 # <3>
+kubectl describe svc mosquitto # <4>
+----
+<1> get service
+<2> delete
+<3> creat and than expose
+<4> infos about a service
+
+.init dashboard if necessary
+[source, bash]
+----
+minikube dashboard
+----
+
+after URL is shown you can end it with kbd:[Ctrl+C]
+
+.enable the dashboard proxy to view the dashboard remotely
+[source, bash]
+----
+kubectl proxy --address='0.0.0.0' --disable-filter=true
+----
+
+Now you can enter the dashboard via the URL ``http://192.168.178.7:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy``
+
+[NOTE]
+the port musst be open. Check if ``8001`` ist open. If not, open it via the Firewall rule. e.g. ``sudo ufw allow 8001`` on ubuntu
+
+
+
+
+https://www.docker.com/blog/simplifying-kubernetes-with-docker-compose-and-friends/[dnsrr]
+
+https://spectechular.de/post/lokalen-mqtt-server-mit-docker-betreiben/
+
+.creating passwordfile with User ``devUser``
+[source, bash]
+----
+mosquitto_passwd -c mosquitto.passwd devUser
+----
+
+example here:
+
+  User:"devUser"
+  PW:"nrg0njvkfr94tngfJBNBNEINBE§h7h0r_30k94jt39jt#+***43Q"
+
+
 == todo
 
-docker-compose -f docker-compose.yml  up --build --force-recreate -d
+https://github.com/kubernetes-sigs/kind/issues/566[workaround for docker from docker - kubectl]
 
-docker-compose -f docker-compose.yml  down
+try ## https://codingbee.net/tutorials/kubernetes/using-docker-with-minikube[docker with minikube]
+
+https://alexellisuk.medium.com/walk-through-install-kubernetes-to-your-raspberry-pi-in-15-minutes-84a8492dc95a[kubernetes - RPi - dashboard]
+
+== remote connect to kubectl
+
+For connecting to a remote machine you can run the following script. Change hostname / IP to your environment.
+
+.connfig load execute in devContainer
+[source, bash]
+----
+./install/loadConfigToContainer.sh 
+----
+
+You can check if it works with running ``kubectl get svc``. If there are Problems you will get an message: ``Unable to connect to the server: x509:``
 
 
+== install on Raspberry pi
 
+. set up an RPi with a Ubuntu image (Server Version 21.04 or higher - 64 bit) with https://www.raspberrypi.org/software/[Raspberry Pi Iamger]
 
+. establish an ssh connection to your Pi
 
+. sync the Project to your pi
 
+.copy Project to remote machine / update Project files
+[source, bash]
+----
+rsync -r /workspaces/mqtt_docker_test/ ubuntu@192.168.178.7:/home/ubuntu/mqtt_docker_test --delete --exclude "SSH" 
+----
 
-############ new
+. setup docker with script if needed
 
-docker-compose -f ./docker-compose.yml up --build --force-recreate -d
-User:"devUser"
-PW:
-"nrg0njvkfr94tngfJBNBNEINBE§h7h0r_30k94jt39jt#+***43Q"
+[source, bash]
+----
+cd /home/ubuntu/mqtt_docker_test/
+./install/setupDocker.sh
+----
 
-https://centurio.net/2019/12/16/configure-mosquitto-mqtt-broker-user-authentication-in-docker-running-on-synology-nas/
+now reboot is necessary
 
+. setup minikube with script if needed
 
-https://mosquitto.org/documentation/authentication-methods/
+[source, bash]
+----
+cd /home/ubuntu/mqtt_docker_test/
+./install/setupMiniKube.sh
+----
 
-https://mosquitto.org/documentation/dynamic-security/#configuring-default-access
+now reboot is necessary
 
-https://mosquitto.org/documentation/migrating-to-2-0/
+. now you can work with minikube 
 
-https://github.com/thelebster/example-mosquitto-simple-auth-docker/blob/master/Dockerfile
-
-https://github.com/eclipse/mosquitto/tree/1c79920d78321c69add9d6d6f879dd73387bc25e/docker/2.0-openssl
-
-https://github.com/eclipse/mosquitto/blob/1c79920d78321c69add9d6d6f879dd73387bc25e/docker/2.0/Dockerfile
+.start minikube on Raspberry Pi with local ip
+[source, bash]
+----
+minikube start --vm-driver=none --apiserver-ips=$(hostname -I | awk '{print $1}')
+----
