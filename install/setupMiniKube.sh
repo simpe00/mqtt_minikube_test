@@ -41,8 +41,10 @@ chmod +x kompose
 sudo mv ./kompose /usr/local/bin/kompose
 
 # add autocomplete
+sudo apt install bash-completion -y
 echo "source <(kubectl completion bash)" >> ~/.bashrc
-# echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc
+echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc
+exec bash
 
 # add firewall rules
 sudo ufw allow 22 # ssh
@@ -59,5 +61,6 @@ sudo cp "$INSTALL_FOLDER/minikube.service" /etc/systemd/system/minikube.service
 # sudo chmod +x /etc/systemd/system/minikube.service
 chmod +x "$INSTALL_FOLDER/startupMinikube.sh" 
 sudo systemctl enable minikube.service
-sudo systemctl daemon-reload 
+sudo systemctl daemon-reload
+sudo systemctl start minikube.service
 

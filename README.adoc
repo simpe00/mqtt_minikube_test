@@ -15,11 +15,6 @@
 
 * https://docs.docker.com/docker-for-windows/install-windows-home/[docker on Windows]
 
-.https://www.ssh.com/ssh/keygen/[Copying the Public Key to the Server]
-[source, bash]
-----
-ssh-copy-id -i ~/.ssh/id_rsa.pub user@host
-----
 
 
 === basic commands
@@ -350,8 +345,20 @@ You can check if it works with running ``kubectl get svc``. If there are Problem
 . set up an RPi with a Ubuntu image (Server Version 21.04 or higher - 64 bit) with https://www.raspberrypi.org/software/[Raspberry Pi Iamger]
 
 . establish an ssh connection to your Pi
++
 
+.https://www.ssh.com/ssh/keygen/[Copying the Public Key to the Server]
+[source, bash]
+----
+ssh-copy-id -i ~/.ssh/id_rsa.pub user@host # <1>
+ssh-copy-id -i ./SSH/id_rsa.pub ubuntu@192.168.178.7 # <2>
+----
+<1> general
+<2> this project
+
++
 . sync the Project to your pi
++
 
 .copy Project to remote machine / update Project files
 [source, bash]
@@ -359,17 +366,18 @@ You can check if it works with running ``kubectl get svc``. If there are Problem
 rsync -r /workspaces/mqtt_docker_test/ ubuntu@192.168.178.7:/home/ubuntu/mqtt_docker_test --delete --exclude "SSH" 
 ----
 
++
 . setup docker with script if needed
++
 
 [source, bash]
 ----
 cd /home/ubuntu/mqtt_docker_test/
 ./install/setupDocker.sh
 ----
-
-now reboot is necessary
-
++
 . setup minikube with script if needed
++
 
 [source, bash]
 ----
@@ -377,12 +385,11 @@ cd /home/ubuntu/mqtt_docker_test/
 ./install/setupMiniKube.sh
 ----
 
-now reboot is necessary
-
++
 . now you can work with minikube 
 
-.start minikube on Raspberry Pi with local ip
+.check if your System is working.
 [source, bash]
 ----
-minikube start --vm-driver=none --apiserver-ips=$(hostname -I | awk '{print $1}')
+minikube ip
 ----
