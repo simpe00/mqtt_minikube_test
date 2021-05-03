@@ -288,7 +288,7 @@ after URL is shown you can end it with kbd:[Ctrl+C]
 kubectl proxy --address='0.0.0.0' --disable-filter=true
 ----
 
-Now you can enter the dashboard via the URL ``http://192.168.178.7:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy``
+Now you can enter the dashboard via the URL ``http://192.168.178.7:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy`` when the command was entered on the host. For entering the command in the devContainer edit the hostname / IP to ``localhost`` so the URL ist ``http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy``
 
 [NOTE]
 the port musst be open. Check if ``8001`` ist open. If not, open it via the Firewall rule. e.g. ``sudo ufw allow 8001`` on ubuntu
@@ -314,11 +314,23 @@ example here:
 
 == todo
 
+=== ms install
+
+----
+choco install minikube kubernetes-cli
+----
+
+minikube start
+
+
 https://github.com/kubernetes-sigs/kind/issues/566[workaround for docker from docker - kubectl]
 
 try ## https://codingbee.net/tutorials/kubernetes/using-docker-with-minikube[docker with minikube]
 
 https://alexellisuk.medium.com/walk-through-install-kubernetes-to-your-raspberry-pi-in-15-minutes-84a8492dc95a[kubernetes - RPi - dashboard]
+
+https://stackoverflow.com/questions/44519980/assign-external-ip-to-a-kubernetes-service[add external ip]
+
 
 == remote connect to kubectl
 

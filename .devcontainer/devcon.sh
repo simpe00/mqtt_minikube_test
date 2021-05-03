@@ -1,6 +1,3 @@
-# install python libs
-# pip3 install --user -r docker/requirements.txt
-
 SSH_FOLDER="$PWD/SSH"
 SRC_FOLDER="$PWD/src"
 KEY_FILE=~/.ssh/id_rsa
@@ -31,12 +28,4 @@ eval "$(ssh-agent -s)"
 ssh-add
 
 rm "${ROOT_SSH_FOLDER}/known_hosts"
-
-apt-get install mosquitto-clients -y
-
-# kompose 
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-linux-amd64 -o kompose
-chmod +x kompose
-sudo mv ./kompose /usr/local/bin/kompose
-
 

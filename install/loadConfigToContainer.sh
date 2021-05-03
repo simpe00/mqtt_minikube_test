@@ -1,3 +1,4 @@
+#!/bin/bash
 scp ubuntu@192.168.178.7:~/.kube/config ~/.kube/config
 
 scp ubuntu@192.168.178.7:~/.minikube/ca.crt ~/.minikube

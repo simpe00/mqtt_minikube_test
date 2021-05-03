@@ -1,4 +1,4 @@
-
+#!/bin/bash
 sudo sed -i '$ s/$/ cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1 swapaccount=1/' /boot/firmware/cmdline.txt
 
 sudo apt-get update && sudo apt-get install -y apt-transport-https
@@ -53,4 +53,11 @@ yes | sudo ufw enable
 sudo ufw allow 1883 # mqtt
 sudo ufw allow 9001 # mqtt
 
-echo "reboot now and check minikube with ´minikube version´"
+# add startup Minikube
+INSTALL_FOLDER="$(dirname $(readlink -f $0))"
+sudo cp "$INSTALL_FOLDER/minikube.service" /etc/systemd/system/minikube.service
+# sudo chmod +x /etc/systemd/system/minikube.service
+chmod +x "$INSTALL_FOLDER/startupMinikube.sh" 
+sudo systemctl enable minikube.service
+sudo systemctl daemon-reload 
+

@@ -17,8 +17,11 @@ RUN apt-get update \
 # Install Docker Compose
 RUN LATEST_COMPOSE_VERSION=$(curl -sSL "https://api.github.com/repos/docker/compose/releases/latest" | grep -o -P '(?<="tag_name": ").+(?=")') \
     && curl -sSL "https://github.com/docker/compose/releases/download/${LATEST_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
-    && chmod +x /usr/local/bin/docker-compose
-# RUN pip install docker-compose
+    && chmod +x /usr/local/bin/docker-compose \
+    && sudo curl \
+    -L "https://raw.githubusercontent.com/docker/compose/${LATEST_COMPOSE_VERSION}/contrib/completion/bash/docker-compose" \
+    -o /etc/bash_completion.d/docker-compose
+
 
 # Install kubectl
 RUN curl -sSL -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
@@ -38,8 +41,13 @@ RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhisto
 # RUN curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
 #     && install minikube-linux-amd64 /usr/local/bin/minikube
 
+# add kompose
+RUN curl -L https://github.com/kubernetes/kompose/releases/download/v1.22.0/kompose-linux-amd64 -o kompose \
+    && chmod +x kompose \
+    && sudo mv ./kompose /usr/local/bin/kompose
+
 # add mosquitto
-RUN apt install mosquitto -y
+RUN apt install mosquitto -y && apt install mosquitto-clients -y
 
 # add autocompletion
 SHELL ["/bin/bash", "-c"]
