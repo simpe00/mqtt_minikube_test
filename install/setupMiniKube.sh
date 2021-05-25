@@ -43,6 +43,7 @@ sudo mv ./kompose /usr/local/bin/kompose
 # add autocomplete
 sudo apt install bash-completion -y
 echo "source <(kubectl completion bash)" >> ~/.bashrc
+echo "source <(minikube completion bash)" >> ~/.bashrc
 echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc
 source ~/.bashrc 
 

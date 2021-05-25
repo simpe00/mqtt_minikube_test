@@ -1,2 +1,13 @@
 #!/bin/bash
-/usr/local/bin/minikube start --vm-driver=none --apiserver-ips=$(hostname -I | awk '{print $1}')
+# get local ip
+LOCAL_IPV4="$(hostname -I | awk '{print $1}')" 
+
+# start minikube
+/usr/local/bin/minikube start --vm-driver=none --apiserver-ips="${LOCAL_IPV4}"
+
+# start dashboard
+timeout 7s minikube dashboard
+
+# enable metrics
+minikube addons enable metrics-server
+kubectl patch -n kube-system svc metrics-server -p '{"spec":{"externalIPs":["'"${LOCAL_IPV4}"'"]}}'

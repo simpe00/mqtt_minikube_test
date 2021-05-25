@@ -54,3 +54,4 @@ SHELL ["/bin/bash", "-c"]
 RUN apt install bash-completion -y \
     && echo "source <(kubectl completion bash)" >> ~/.bashrc \
     && echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc
+# RUN source <(minikube completion bash)

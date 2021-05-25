@@ -1,4 +1,4 @@
-:toc:
+:toc: left
 :icons: font
 :experimental:
 :source-highlighter: pygments
@@ -19,22 +19,16 @@
 
 === basic commands
 
-.freeze python requirements
-[source, BASH]
-----
-pip freeze > docker/requirements.txt
-----
-
-.start docker container from #outside# the devContainer
+.docker up
 [source, CMD]
 ----
 docker-compose -f ./docker-compose.yml up --build --force-recreate -d
 ----
 
-.stop docker container
-[source, BASH]
+.docker down
+[source, CMD]
 ----
-docker-compose -f ./docker-compose.yml down
+docker-compose -f docker-compose.yml  down
 ----
 
 .load development Container in VSC
@@ -52,58 +46,9 @@ include::.env[]
 ----
 
 
-== docker remote deploying on raspberry
-
-. install a OS on a SD-card
-
-    e.g. UBUNTU SERVER 2.10 64bit
-
-. install https://docs.docker.com/compose/install/#alternative-install-options[docker-compose] and https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository[docker] on raspberry
-
-+
-[source, bash]
-----
-sudo pip install docker-compose
-sudo apt install docker.io
-----
-+
-
-+
-[IMPORTANT]
-docker-compose installed with pip. Other methods may lead to problems if using "remote" context because of causing a mismatch of OpenSSL versions.
-+
-. create docker context from Laptop/VSC and proof it
-+
-[source, bash]
-----
-docker context create remote --docker "host=ssh://ubuntu@192.168.178.7"
-
-docker context ls
-
-docker context use remote
-----
-+
-
-[NOTE]
-if there are still problems with docker, try to https://github.com/sindresorhus/guides/blob/main/docker-without-sudo.md[add ubuntu user to docker group or have access via SSH for docker daemon ].
-+
-
-[NOTE]
-SSH key needs to be on the remote machine
-
-+
-
-.copy Project to remote machine / update Project files
-[source, bash]
-----
-scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/ --exclude "SSH" //<1>
-rsync -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/Elastic --delete --exclude "SSH" //<2>
-----
-<1> copy
-<2> update
-
-
 == links
+
+=== general
 
 https://github.com/microsoft/vscode-dev-containers/tree/master/containers/kubernetes-helm[kubernetes for devcontainer]
 
@@ -117,9 +62,13 @@ https://github.com/kubernetes/kompose/blob/master/docs/getting-started.md[gettin
 
 https://dev.to/gvelrajan/configure-local-kubectl-to-remote-access-kubernetes-cluster-2g81[configure local kubectl to remote access kubernetes cluster]
 
-=== general
-
 https://github.com/FreeOpcUa/opcua-asyncio[python opc ua lib]
+
+=== mqtt
+
+https://centurio.net/2019/12/16/configure-mosquitto-mqtt-broker-user-authentication-in-docker-running-on-synology-nas/[mosquitto server with docker - user authentication]
+
+https://mosquitto.org/documentation/authentication-methods/[mosquitto - Authentication - Passwordfile]
 
 == additional commands collection
 
@@ -140,54 +89,6 @@ docker exec -it ubuntu_server bash
 ----
 scp -r /workspaces/Elastic/ ubuntu@192.168.178.7:/home/ubuntu/ --exclude "SSH"
 ----
-
-
-.start docker from SSH-Remote-Host (Pi) for production
-[source, bash]
-----
-docker-compose -f docker-compose.yml -f docker-compose.arm.yml -f docker-compose.prod.yml -f docker-compose.local.yml up --build --force-recreate -d
-----
-
-.start docker from localhost (windows/devcontainer) on remote-host via SSH 
-[source#hello, bash]
-----
-docker-compose -H ssh://ubuntu@192.168.178.7 -f docker-compose.yml -f docker-compose.arm.yml -f docker-compose.prod.yml up --build --force-recreate -d 
-----
-
-.add local bind-mounts. Makes Hot-deployment possible
-[source, bash]
-----
-docker-compose -f ./docker-compose.yml -f ./docker-compose.local.yml up --build --force-recreate -d
-----
-
-### new
-
-
-== working with mosquitto - mqtt
-
-=== links
-
-https://centurio.net/2019/12/16/configure-mosquitto-mqtt-broker-user-authentication-in-docker-running-on-synology-nas/[mosquitto server with docker - user authentication]
-
-https://mosquitto.org/documentation/authentication-methods/[mosquitto - Authentication - Passwordfile]
-
-== using docker-compose
-
-=== commands
-
-.docker up
-[source, bash]
-----
-docker-compose -f ./docker-compose.yml up --build --force-recreate -d
-----
-
-.docker down
-[source, bash]
-----
-docker-compose -f docker-compose.yml  down
-----
-
-
 
 
 == install kubernetes / minikube / kubectl
@@ -218,14 +119,18 @@ minikube start
 ssh ubuntu@192.168.178.7 test -f "~/.kube/config"
 ----
 
-.mqtt commands
+.mqtt commands 
 [source, bash]
 ----
 mosquitto_sub -t "test" -h 192.168.178.7 -u "devUser" -P "nrg0njvkfr94tngfJBNBNEINBE§h7h0r_30k94jt39jt#+***43Q" # <1>
 mosquitto_pub -t "test" -h 192.168.178.7 -u "devUser" -P "nrg0njvkfr94tngfJBNBNEINBE§h7h0r_30k94jt39jt#+***43Q" -m "myMessage" # <2>
+mosquitto_sub -t "test" -h 192.168.178.7 -u "devUser" -P "nrg0njvkfr94tngfJBNBNEINBE§h7h0r_30k94jt39jt#+***43Q" -p 30000 # <3>
+mosquitto_pub -t "test" -h 192.168.178.7 -u "devUser" -P "nrg0njvkfr94tngfJBNBNEINBE§h7h0r_30k94jt39jt#+***43Q" -m "myMessage" -p 30000 # <4>
 ----
 <1> subscribe to mqtt-broker
 <2> publish to mqtt broker
+<1> subscribe to mqtt-broker with using port 3000
+<2> publish to mqtt broker with using port 3000
 
 .generate kubernetes manifest from docker-compose on the Raspberry
 [source, bash]
@@ -233,16 +138,47 @@ mosquitto_pub -t "test" -h 192.168.178.7 -u "devUser" -P "nrg0njvkfr94tngfJBNBNE
 docker-compose config > docker-compose-resolved.yaml && kompose convert -f docker-compose-resolved.yaml --volumes hostPath --out minikube.yaml
 ----
 
-.add to the ``minikube.yaml`` to the service
+Than make the port available outside Kubernetes. There are two diffrent options.
+
+. Using ExternalIP
++
+
+.add to the ``minikube.yaml`` to the service section
 [source, minikube.yaml]
 ----
       selector:
         io.kompose.service: mosquitto
-      type: LoadBalancer
-      externalIPs:
-      - 192.168.178.7 # <1>
+      type: LoadBalancer # <1>
+      externalIPs: # <1>
+      - 192.168.178.7 # <1> <2>
 ----
-<1> IP of the Raspberry Pi
+<1>  add lines
+<2>  IP of the Raspberry Pi
+
++
+
+. Using NodePort
++
+
+.add to the ``minikube.yaml`` to the service section
+[source, minikube.yaml]
+----
+      ports:
+        - name: "1883"
+          port: 1883
+          targetPort: 1883
+          nodePort: 30000 # <1>
+        - name: "9001"
+          port: 9001
+          targetPort: 9001
+          nodePort: 30001 # <1>
+      selector:
+        io.kompose.service: mosquitto
+      type: NodePort # <1>
+----
+<1>  add lines
++
+
 
 .deyploy service to minikube
 [source, bash]
@@ -269,13 +205,6 @@ kubectl describe svc mosquitto # <4>
 <3> creat and than expose
 <4> infos about a service
 
-.init dashboard if necessary
-[source, bash]
-----
-minikube dashboard
-----
-
-after URL is shown you can end it with kbd:[Ctrl+C]
 
 .enable the dashboard proxy to view the dashboard remotely
 [source, bash]

@@ -15,14 +15,14 @@ items:
         - name: "1883"
           port: 1883
           targetPort: 1883
+          nodePort: 30000
         - name: "9001"
           port: 9001
           targetPort: 9001
+          nodePort: 30001
       selector:
         io.kompose.service: mosquitto
-      type: loadBalancer
-      externalIPs:
-      - 192.168.178.7
+      type: NodePort
     status:
       loadBalancer: {}
   - apiVersion: apps/v1
