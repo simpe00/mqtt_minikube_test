@@ -129,8 +129,8 @@ mosquitto_pub -t "test" -h 192.168.178.7 -u "devUser" -P "nrg0njvkfr94tngfJBNBNE
 ----
 <1> subscribe to mqtt-broker
 <2> publish to mqtt broker
-<1> subscribe to mqtt-broker with using port 3000
-<2> publish to mqtt broker with using port 3000
+<3> subscribe to mqtt-broker with using port 3000
+<4> publish to mqtt broker with using port 3000
 
 .generate kubernetes manifest from docker-compose on the Raspberry
 [source, bash]
@@ -160,8 +160,8 @@ Than make the port available outside Kubernetes. There are two diffrent options.
 . Using NodePort
 +
 
-.add to the ``minikube.yaml`` to the service section
-[source, minikube.yaml]
+.add to the ``minikubeNodePort.yaml`` to the service section
+[source, minikubeNodePort.yaml]
 ----
       ports:
         - name: "1883"
@@ -244,7 +244,7 @@ example here:
 choco install minikube kubernetes-cli
 ----
 
-minikube start
+
 
 
 https://github.com/kubernetes-sigs/kind/issues/566[workaround for docker from docker - kubectl]
@@ -254,6 +254,8 @@ try ## https://codingbee.net/tutorials/kubernetes/using-docker-with-minikube[doc
 https://alexellisuk.medium.com/walk-through-install-kubernetes-to-your-raspberry-pi-in-15-minutes-84a8492dc95a[kubernetes - RPi - dashboard]
 
 https://stackoverflow.com/questions/44519980/assign-external-ip-to-a-kubernetes-service[add external ip]
+
+https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/[wsl docker-desktop]
 
 
 == remote connect to kubectl

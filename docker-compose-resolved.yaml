@@ -1,0 +1,33 @@
+networks:
+  frontend:
+    driver: bridge
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+      - subnet: 192.168.178.0/24
+      driver: default
+services:
+  mosquitto:
+    container_name: mqtt
+    deploy:
+      endpoint_mode: dnsrr
+      mode: replicated
+      replicas: 1
+    image: eclipse-mosquitto:2.0.10
+    networks:
+      backend:
+        ipv4_address: 172.20.2.8
+      frontend:
+        ipv4_address: 192.168.178.16
+    ports:
+    - published: 1883
+      target: 1883
+    - published: 9001
+      target: 9001
+    restart: always
+    volumes:
+    - C:\UNI\TPBW\Projekte\mqtt_docker_test\docker\mosquitto\config:/mosquitto/config:rw
+    - C:\UNI\TPBW\Projekte\mqtt_docker_test\docker\mosquitto\config\mosquitto.passwd:/mosquitto/config/mosquitto.passwd:rw
+version: '3.7'
+

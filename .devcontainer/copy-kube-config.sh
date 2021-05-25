@@ -11,6 +11,9 @@ if [ "$SYNC_LOCALHOST_KUBECONFIG" = "true" ] && [ -d "/usr/local/share/kube-loca
     # sed -i -e "s/localhost/kubernetes.docker.internal/g" $HOME/.kube/config
     # sed -i -e "s/127.0.0.1/kubernetes.docker.internal/g" $HOME/.kube/config
 
+    # use docker-desktop for windows
+    sed -i -r "s|(\s*current-context:\s).*|current-context: docker-desktop|g" $HOME/.kube/config
+
     # If .minikube was mounted, set up client cert/key
     if [ -d "/usr/local/share/minikube-localhost" ]; then
         mkdir -p $HOME/.minikube
