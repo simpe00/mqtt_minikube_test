@@ -187,7 +187,10 @@ kubectl apply -f minikube.yaml
 ----
 
 [NOTE]
-if there is an Error X509 you can try kubectl wit ``--insecure-skip-tls-verify`` flag
+If there is an Error X509 you can try kubectl wit ``--insecure-skip-tls-verify`` flag
+
+[NOTE]
+If you want to apply ``minikubeWindows.yaml`` to ``docker-desktop`` kubernetes use the context ``docker-desktop``
 
 
 .examples for kubectl use
@@ -215,7 +218,10 @@ kubectl proxy --address='0.0.0.0' --disable-filter=true
 Now you can enter the dashboard via the URL ``http://192.168.178.7:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy`` when the command was entered on the host. For entering the command in the devContainer edit the hostname / IP to ``localhost`` so the URL ist ``http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy``
 
 [NOTE]
-the port musst be open. Check if ``8001`` ist open. If not, open it via the Firewall rule. e.g. ``sudo ufw allow 8001`` on ubuntu
+For using the https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/#kind-can-i-see-a-nice-dashboard[dashboard on Windows] you need a token. You can get the token via ``kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')`` 
+
+[NOTE]
+The port musst be open. Check if ``8001`` ist open. If not, open it via the Firewall rule. e.g. ``sudo ufw allow 8001`` on ubuntu
 
 
 
