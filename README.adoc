@@ -132,11 +132,15 @@ mosquitto_pub -t "test" -h 192.168.178.7 -u "devUser" -P "nrg0njvkfr94tngfJBNBNE
 <3> subscribe to mqtt-broker with using port 3000
 <4> publish to mqtt broker with using port 3000
 
-.generate kubernetes manifest from docker-compose on the Raspberry
+.generate kubernetes manifest from docker-compose
 [source, bash]
 ----
-docker-compose config > docker-compose-resolved.yaml && kompose convert -f docker-compose-resolved.yaml --volumes hostPath --out minikube.yaml
+docker-compose config > docker-compose-resolved.yaml && kompose convert -f docker-compose-resolved.yaml --volumes hostPath --out minikube.yaml # <1>
+
+docker-compose config > docker-compose-resolved.yaml && kompose convert -f docker-compose-resolved.yaml --out minikube.yaml # <2>
 ----
+<1> with hosthPath from RPi
+<2> without any volumes
 
 Than make the port available outside Kubernetes. There are two diffrent options.
 
@@ -241,29 +245,6 @@ example here:
   User:"devUser"
   PW:"nrg0njvkfr94tngfJBNBNEINBE§h7h0r_30k94jt39jt#+***43Q"
 
-
-== todo
-
-=== ms install
-
-----
-choco install minikube kubernetes-cli
-----
-
-
-
-
-https://github.com/kubernetes-sigs/kind/issues/566[workaround for docker from docker - kubectl]
-
-try ## https://codingbee.net/tutorials/kubernetes/using-docker-with-minikube[docker with minikube]
-
-https://alexellisuk.medium.com/walk-through-install-kubernetes-to-your-raspberry-pi-in-15-minutes-84a8492dc95a[kubernetes - RPi - dashboard]
-
-https://stackoverflow.com/questions/44519980/assign-external-ip-to-a-kubernetes-service[add external ip]
-
-https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/[wsl docker-desktop]
-
-
 == remote connect to kubectl
 
 For connecting to a remote machine you can run the following script. Change hostname / IP to your environment.
@@ -330,3 +311,19 @@ cd /home/ubuntu/mqtt_docker_test/
 ----
 minikube ip
 ----
+
+== todo
+
+=== ms install
+
+https://github.com/kubernetes-sigs/kind/issues/566[workaround for docker from docker - kubectl]
+
+try ## https://codingbee.net/tutorials/kubernetes/using-docker-with-minikube[docker with minikube]
+
+https://alexellisuk.medium.com/walk-through-install-kubernetes-to-your-raspberry-pi-in-15-minutes-84a8492dc95a[kubernetes - RPi - dashboard]
+
+https://stackoverflow.com/questions/44519980/assign-external-ip-to-a-kubernetes-service[add external ip]
+
+https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/[wsl docker-desktop]
+
+add build of docker-compose

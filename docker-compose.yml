@@ -2,14 +2,14 @@ version: '3.7'
 
 services: 
   mosquitto:
-    image: eclipse-mosquitto:${MOSQUITTO_VERS}
+    image: eclipse-mosquitto-config:${MOSQUITTO_VERS}
+    build: 
+      context: ./mosquitto/
+      dockerfile: Dockerfile.mosquitto
+      args:
+        - VERSION=${MOSQUITTO_VERS}
     container_name: mqtt
     restart: always
-    volumes:
-      - ./docker/mosquitto/config:/mosquitto/config
-      - ./docker/mosquitto/config/mosquitto.passwd:/mosquitto/config/mosquitto.passwd
-    #   - ./docker/mosquitto/data:/mosquitto/data
-    #   - ./docker/mosquitto/log:/mosquitto/log
     ports:
       - ${PORT_MOSQUITTO_1}:${PORT_MOSQUITTO_1}
       - ${PORT_MOSQUITTO_2}:${PORT_MOSQUITTO_2}

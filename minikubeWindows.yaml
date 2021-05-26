@@ -4,7 +4,7 @@ items:
     kind: Service
     metadata:
       annotations:
-        kompose.cmd: kompose convert -f docker-compose-resolved.yaml --volumes hostPath --out minikube1.yaml
+        kompose.cmd: kompose convert -f docker-compose-resolved.yaml --out minikube.yaml
         kompose.version: 1.22.0 (955b78124)
       creationTimestamp: null
       labels:
@@ -29,7 +29,7 @@ items:
     kind: Deployment
     metadata:
       annotations:
-        kompose.cmd: kompose convert -f docker-compose-resolved.yaml --volumes hostPath --out minikube1.yaml
+        kompose.cmd: kompose convert -f docker-compose-resolved.yaml --out minikube.yaml
         kompose.version: 1.22.0 (955b78124)
       creationTimestamp: null
       labels:
@@ -45,35 +45,21 @@ items:
       template:
         metadata:
           annotations:
-            kompose.cmd: kompose convert -f docker-compose-resolved.yaml --volumes hostPath --out minikube1.yaml
+            kompose.cmd: kompose convert -f docker-compose-resolved.yaml --out minikube.yaml
             kompose.version: 1.22.0 (955b78124)
           creationTimestamp: null
           labels:
             io.kompose.service: mosquitto
         spec:
           containers:
-            - image: eclipse-mosquitto:2.0.10
+            - image: eclipse-mosquitto-config:2.0.10
               name: mqtt
               ports:
                 - containerPort: 1883
                 - containerPort: 9001
               resources: {}
-              volumeMounts:
-                - mountPath: /mosquitto/config
-                  name: mosquitto-hostpath0
-                - mountPath: /mosquitto/config/mosquitto.passwd
-                  name: mosquitto-hostpath1
           restartPolicy: Always
-          volumes:
-            - hostPath:
-                path: /run/desktop/mnt/host/c/UNI/TPBW/Projekte/mqtt_docker_test/docker/mosquitto/config
-                type: DirectoryOrCreate
-              name: mosquitto-hostpath0
-            - hostPath:
-                path: /run/desktop/mnt/host/c/UNI/TPBW/Projekte/mqtt_docker_test/docker/mosquitto/config/mosquitto.passwd
-                type: FileOrCreate
-              name: mosquitto-hostpath1
-    status: {}  
+    status: {}
 kind: List
 metadata: {}
 

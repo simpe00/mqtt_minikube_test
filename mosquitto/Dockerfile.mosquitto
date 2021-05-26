@@ -1,0 +1,4 @@
+ARG VERSION=latest
+FROM eclipse-mosquitto:${VERSION}
+
+ADD config /mosquitto/config
